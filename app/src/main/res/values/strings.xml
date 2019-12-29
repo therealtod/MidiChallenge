@@ -23,9 +23,8 @@
     <string name="game_activity_suggestion_txt">Suggerimento:</string>
     <string name="game_activity_play_btn">Play</string>
     <string name="game_activity_confirm_btn">Conferma</string>
-    <string name="game_activity_btn_less">-</string>
-    <string name="game_activity_et_number">0</string>
-    <string name="game_activity_btn_more">+</string>
-
+    <string name="number_picker_btn_less">-</string>
+    <string name="number_picker_txt">0</string>
+    <string name="number_picker_btn_more">+</string>
 
 </resources>

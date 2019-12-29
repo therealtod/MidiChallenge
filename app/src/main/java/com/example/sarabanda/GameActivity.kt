@@ -1,5 +1,6 @@
 package com.example.sarabanda
 
+import HorizontalNumberPicker
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.widget.*
@@ -22,9 +23,9 @@ class GameActivity : AppCompatActivity() {
         val currentQuestion = game.questions.get(0)
         val suggestionBox: TextView = findViewById(R.id.textView2)
         suggestionBox.setText(currentQuestion.suggestion)
-        //val numberPicker: NumberPicker = findViewById(R.id.numberPicker)
-        //numberPicker.maxValue = numberPickerMaxValue
-        //numberPicker.minValue = numberPickerMinValue
+        val numberPicker: HorizontalNumberPicker = findViewById(R.id.horizontalNumberPicker)
+        numberPicker.max = numberPickerMaxValue
+        numberPicker.min = numberPickerMinValue
         val playButton: Button = findViewById(R.id.button7)
         val answerBox: EditText = findViewById(R.id.editText)
         val confirmButton: Button = findViewById(R.id.button2)
