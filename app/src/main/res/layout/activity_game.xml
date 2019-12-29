@@ -17,36 +17,24 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/toolbar"
-        android:layout_marginTop="@dimen/question_counter_margin_from_toolbar"
-        android:text="TextView" />
+        android:layout_marginTop="@dimen/question_counter_margin"
+        android:text="@string/game_activity_counter_txt" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/toolbar"
-        android:layout_marginTop="@dimen/suggestion_margin_from_toolbar"
-        android:text="TextView" />
+        android:layout_below="@id/textView3"
+        android:layout_marginTop="@dimen/suggestion_margin"
+        android:text="@string/game_activity_suggestion_txt" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:orientation="horizontal">
-        <NumberPicker
-            android:id="@+id/numberPicker"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true" />
-        <Button
-            android:id="@+id/button7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Button" />
-    </LinearLayout>
+        android:orientation="horizontal" />
 
     <EditText
         android:id="@+id/editText"
@@ -55,7 +43,7 @@
         android:ems="10"
         android:layout_centerHorizontal="true"
         android:layout_above="@id/button2"
-        android:layout_margin="@dimen/answer_text_margin_from_confirm_button"
+        android:layout_margin="@dimen/answer_text_margin"
         android:inputType="textMultiLine" />
 
     <Button
@@ -63,6 +51,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="Button" />
+        android:text="@string/game_activity_confirm_btn" />
 
 </RelativeLayout>

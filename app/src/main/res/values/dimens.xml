@@ -6,9 +6,14 @@
     <dimen name="nav_header_height">176dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
 
-    <dimen name="suggestion_margin_from_toolbar">50dp</dimen>
-    <dimen name="question_counter_margin_from_toolbar">25dp</dimen>
-    <dimen name="answer_text_margin_from_confirm_button">50dp</dimen>
+    <dimen name="question_counter_margin">25dp</dimen>
+    <dimen name="suggestion_margin">25dp</dimen>
+    <dimen name="answer_text_margin">25dp</dimen>
 
+    <!--
+Refer to App Widget Documentation for margin information
+http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
+    -->
+    <dimen name="widget_margin">8dp</dimen>
 
 </resources>

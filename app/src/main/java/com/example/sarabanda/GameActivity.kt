@@ -2,19 +2,17 @@ package com.example.sarabanda
 
 import android.media.MediaPlayer
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.example.sarabanda.models.ClassicGame
 import com.example.sarabanda.models.Game
-
 
 class GameActivity : AppCompatActivity() {
 
     private lateinit var mediaPlayer: MediaPlayer
     private lateinit var game: ClassicGame
+    private val numberPickerMaxValue = 25
+    private val numberPickerMinValue = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,9 +22,12 @@ class GameActivity : AppCompatActivity() {
         val currentQuestion = game.questions.get(0)
         val suggestionBox: TextView = findViewById(R.id.textView2)
         suggestionBox.setText(currentQuestion.suggestion)
+        //val numberPicker: NumberPicker = findViewById(R.id.numberPicker)
+        //numberPicker.maxValue = numberPickerMaxValue
+        //numberPicker.minValue = numberPickerMinValue
         val playButton: Button = findViewById(R.id.button7)
-        val confirmButton: Button = findViewById(R.id.button2)
         val answerBox: EditText = findViewById(R.id.editText)
+        val confirmButton: Button = findViewById(R.id.button2)
 
         playButton.setOnClickListener{ view ->
             mediaPlayer = MediaPlayer.create(this, currentQuestion.sID)
@@ -35,11 +36,11 @@ class GameActivity : AppCompatActivity() {
 
         confirmButton.setOnClickListener{ view ->
             if(answerBox.getText().toString() == currentQuestion.answer ) {
-                val toast = Toast.makeText(applicationContext, "Risposta corretta", Toast.LENGTH_LONG)
+                val toast = Toast.makeText(applicationContext, "CORRECT ANSWER", Toast.LENGTH_LONG)
                 toast.show()
             }
             else {
-                val toast = Toast.makeText(applicationContext, "Risposta errata", Toast.LENGTH_LONG)
+                val toast = Toast.makeText(applicationContext, "WRONG ANSWER", Toast.LENGTH_LONG)
                 toast.show()
             }
         }
