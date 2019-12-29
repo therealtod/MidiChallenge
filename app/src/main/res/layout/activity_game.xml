@@ -30,12 +30,13 @@
         android:text="@string/game_activity_suggestion_txt" />
 
     <LinearLayout
+        android:id="@+id/centerLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:orientation="horizontal" >
-        <HorizontalNumberPicker
+        <com.example.sarabanda.views.HorizontalNumberPicker
             android:id="@+id/horizontalNumberPicker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

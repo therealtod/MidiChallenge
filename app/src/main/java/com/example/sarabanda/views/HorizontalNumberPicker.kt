@@ -1,3 +1,5 @@
+package com.example.sarabanda.views
+
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.content.Context

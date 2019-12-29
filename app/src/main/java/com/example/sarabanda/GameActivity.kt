@@ -1,6 +1,6 @@
 package com.example.sarabanda
 
-import HorizontalNumberPicker
+import com.example.sarabanda.views.HorizontalNumberPicker
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.widget.*
@@ -30,7 +30,7 @@ class GameActivity : AppCompatActivity() {
         val answerBox: EditText = findViewById(R.id.editText)
         val confirmButton: Button = findViewById(R.id.button2)
 
-        playButton.setOnClickListener{ view ->
+    playButton.setOnClickListener{ view ->
             mediaPlayer = MediaPlayer.create(this, currentQuestion.sID)
             mediaPlayer.start()
         }
