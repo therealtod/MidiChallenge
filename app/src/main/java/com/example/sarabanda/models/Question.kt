@@ -1,5 +1,5 @@
 package com.example.sarabanda.models
 
-open class Question(val songID: Int)
+open class Question(val file: String, val author: String, val suggestion: String, val answer: String)
 
-data class ClassicGameQuestion(val sID: Int, val suggestion: String, val answer: String): Question(sID)
+data class ClassicGameQuestion(val sID: Int, val suggestion: String, val answer: String)

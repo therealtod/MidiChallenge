@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.example.sarabanda.models.ClassicGame
-import com.example.sarabanda.models.Game
 
 class GameActivity : AppCompatActivity() {
 
@@ -19,7 +18,7 @@ class GameActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
 
-        game = ClassicGame()
+        game = ClassicGame(this)
         val currentQuestion = game.questions.get(0)
         val suggestionBox: TextView = findViewById(R.id.textView2)
         suggestionBox.setText(currentQuestion.suggestion)

@@ -2,18 +2,24 @@ package com.example.sarabanda.utils
 
 import android.content.Context
 import com.example.sarabanda.models.Question
-import org.json.JSONObject
-import java.io.InputStream
+import com.example.sarabanda.models.QuestionsList
+import com.google.gson.Gson
+import java.io.BufferedReader
+import java.io.FileReader
+import java.io.InputStreamReader
 
-class QuestionManager (val context : Context) {
-    private lateinit var songList: ArrayList<Question>
+class QuestionManager(val context: Context) {
+    private val gson: Gson = Gson()
+    private val questionsList: QuestionsList
     init{
-        val jsonFile : InputStream = context.assets.open("songList.json")
-        val size : Int = jsonFile.available()
-        val buffer : ByteArray = ByteArray(size)
-        jsonFile.read(buffer)
-        jsonFile.close()
-        val jsonString: String = String(buffer)
-        val obj : JSONObject = JSONObject(jsonString)
+        val reader : BufferedReader = BufferedReader(InputStreamReader(context.assets.open("songList.json")))
+        questionsList = gson.fromJson(reader, QuestionsList::class.java)
+    }
+
+    fun getQuestions (number: Int): MutableList<Question> {
+        val questions = questionsList.questions
+        val l = ArrayList(questions)
+        l.shuffle()
+        return l.subList(0, number)
     }
 }
