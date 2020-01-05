@@ -1,2 +1,2 @@
 include ':app'
-rootProject.name='Sarabanda'
+rootProject.name='MidiChallenge'
