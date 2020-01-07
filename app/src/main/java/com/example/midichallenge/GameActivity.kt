@@ -29,10 +29,11 @@ class GameActivity : AppCompatActivity() {
         val answerBox: EditText = findViewById(R.id.editText)
         val confirmButton: Button = findViewById(R.id.button2)
 
-    playButton.setOnClickListener{ view ->
-            mediaPlayer = MediaPlayer.create(this, currentQuestion.sID)
+        playButton.setOnClickListener{ view ->
+            mediaPlayer = MediaPlayer.create(this, R.raw.certe_notti)
             mediaPlayer.start()
-        }
+            numberPicker.freezebutton()
+            }
 
         confirmButton.setOnClickListener{ view ->
             if(answerBox.getText().toString() == currentQuestion.answer ) {
@@ -44,5 +45,6 @@ class GameActivity : AppCompatActivity() {
                 toast.show()
             }
         }
+
     }
 }
