@@ -9,7 +9,6 @@ import android.view.View
 import android.widget.Button
 import androidx.annotation.Nullable
 import com.example.midichallenge.R
-import kotlinx.android.synthetic.main.horizontal_number_picker.*
 
 class HorizontalNumberPicker(context: Context, @Nullable attrs: AttributeSet) :
     LinearLayout(context, attrs) {
