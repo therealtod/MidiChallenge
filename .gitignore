@@ -85,4 +85,6 @@ lint/tmp/
 # lint/reports/
 
 app/src/main/res/raw/donne.mid
+app/src/main/res/raw/io_vagabondo.mid
+app/src/main/res/raw/certe_notti.mid
 app/libs/android-midi-lib
