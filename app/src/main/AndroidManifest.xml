@@ -11,6 +11,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name="com.example.midichallenge.GameActivity"
+            android:windowSoftInputMode="adjustResize"
             android:label="@string/title_activity_game" />
         <activity
             android:name="com.example.midichallenge.MainActivity"

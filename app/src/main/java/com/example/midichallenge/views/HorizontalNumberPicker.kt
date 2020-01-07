@@ -9,12 +9,15 @@ import android.view.View
 import android.widget.Button
 import androidx.annotation.Nullable
 import com.example.midichallenge.R
+import kotlinx.android.synthetic.main.horizontal_number_picker.*
 
 class HorizontalNumberPicker(context: Context, @Nullable attrs: AttributeSet) :
     LinearLayout(context, attrs) {
     private val etNumber: EditText?
     var min: Int = 0
     var max: Int = 0
+    private val btnLess: Button
+    private val btnMore: Button
 
     /***
      * GETTERS & SETTERS
@@ -43,10 +46,10 @@ class HorizontalNumberPicker(context: Context, @Nullable attrs: AttributeSet) :
 
         etNumber = findViewById(R.id.et_number)
 
-        val btnLess : Button = findViewById(R.id.btn_less)
+        btnLess = findViewById(R.id.btn_less)
         btnLess.setOnClickListener(AddHandler(-1))
 
-        val btnMore : Button = findViewById(R.id.btn_more)
+        btnMore = findViewById(R.id.btn_more)
         btnMore.setOnClickListener(AddHandler(1))
     }
 
@@ -65,5 +68,11 @@ class HorizontalNumberPicker(context: Context, @Nullable attrs: AttributeSet) :
             }
             etNumber!!.setText(newValue.toString())
         }
+    }
+
+
+    fun freezebutton() {
+        btnLess.visibility = View.GONE
+        btnMore.visibility = View.GONE
     }
 }
