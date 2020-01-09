@@ -1,4 +1,5 @@
 <resources>
+
     <string name="app_name">MidiChallenge</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -18,7 +19,7 @@
     <!--Main activity components-->
     <string name="content_main_play_btn">Start</string>
 
-    <!--Activity game components-->
+    <!--GameActivity components-->
     <string name="game_activity_question_counter_text">Domanda numero:</string>
     <string name="game_activity_suggestion_text">Indizio:</string>
     <string name="game_activity_play_button">Play</string>
@@ -27,8 +28,15 @@
     <string name="number_picker_text">1</string>
     <string name="number_picker_more_button">+</string>
 
-    <!--Dialog game components-->
+    <!--EndGameActivity components-->
+    <string name="end_game_text">FINE!</string>
+    <string name="end_game_score_text">Il tuo punteggio:</string>
+    <string name="end_game_score_number">TOT</string>
+    <string name="end_game_play_again_button">Ricomincia</string>
+
+    <!--Dialog components-->
     <string name="dialog_correct_answer_text">RISPOSTA CORRETTA!</string>
+    <string name="dialog_wrong_answer_text">RISPOSTA SBAGLIATA!</string>
     <string name="dialog_next_button">Continua</string>
 
 </resources>

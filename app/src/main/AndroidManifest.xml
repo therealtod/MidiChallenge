@@ -9,12 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".EndGameActivity"></activity>
         <activity
-            android:name="com.example.midichallenge.GameActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:label="@string/title_activity_game" />
+            android:name=".GameActivity"
+            android:label="@string/title_activity_game"
+            android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name="com.example.midichallenge.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
