@@ -40,9 +40,8 @@ class MainActivity : AppCompatActivity() {
 
         val button: Button = findViewById(R.id.button)
         button.setOnClickListener { view ->
-            val intent = Intent(this, GameActivity::class.java).apply {
-            }
-            intent.putExtra("CURRENT_QUESTION", 0);
+            val intent = Intent(this, GameActivity::class.java)
+            intent.putExtra("CURRENT_QUESTION", -1)
             startActivity(intent)
         }
     }

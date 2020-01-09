@@ -6,7 +6,6 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.media.MediaPlayer
 import android.os.Bundle
-import android.view.View
 import android.view.Window
 import android.widget.Button
 import android.widget.EditText
@@ -61,36 +60,45 @@ class GameActivity : AppCompatActivity() {
 
     //This dialog is show to the user after he ans correct
     fun displayDialog( isResponseCorrect : Boolean) {
-        val dialogCorrect = Dialog(this@GameActivity)
-        dialogCorrect.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        if (dialogCorrect.window != null) {
+        val dialog = Dialog(this@GameActivity)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        if (dialog.window != null) {
             val colorDrawable = ColorDrawable(Color.TRANSPARENT)
-            dialogCorrect.window!!.setBackgroundDrawable(colorDrawable)
+            dialog.window!!.setBackgroundDrawable(colorDrawable)
         }
-        dialogCorrect.setContentView(R.layout.dialog_correct)
-        dialogCorrect.setCancelable(false)
-        dialogCorrect.show()
+        dialog.setContentView(R.layout.dialog)
+        dialog.setCancelable(false)
+        dialog.show()
 
-        val correctText : View =
-            dialogCorrect.findViewById(R.id.correctText)
         val buttonNext: Button =
-            dialogCorrect.findViewById(R.id.dialogNext)
+            dialog.findViewById(R.id.dialogNext)
+        val responseText : TextView =
+            dialog.findViewById(R.id.responseText)
+
+        if(isResponseCorrect) {
+            responseText.setText(R.string.dialog_correct_answer_text)
+            responseText.setTextColor(Color.GREEN)
+        }
+        else {
+            responseText.setText(R.string.dialog_wrong_answer_text)
+            responseText.setTextColor(Color.RED)
+        }
 
         buttonNext.setOnClickListener { view ->
-            dialogCorrect.dismiss()
-            if(currentQuestionNumber < R.integer.number_of_questions_classic_game_mode) {
-                currentQuestionNumber++
+            dialog.dismiss()
+            if(currentQuestionNumber < this.resources.getInteger(R.integer.number_of_questions_classic_game_mode) - 1) {
                 updateView()
             }
             else {
                 //crea nuova activity EndGame
-                val toast = Toast.makeText(applicationContext, "PARTITA CONCLUSA", 3)
+                val toast = Toast.makeText(applicationContext, "PARTITA CONCLUSA", Toast.LENGTH_SHORT)
                 toast.show()
             }
         }
     }
 
     fun updateQuestionAndAnswer() {
+        currentQuestionNumber++
         val currentQuestion = game.questions.get(currentQuestionNumber)
         val suggestionBox: TextView = findViewById(R.id.textView2)
         expectedAnswer = currentQuestion.answer
@@ -99,8 +107,8 @@ class GameActivity : AppCompatActivity() {
 
     fun updateView() {
         val answerBox: EditText = findViewById(R.id.editText)
-        updateQuestionAndAnswer()
         answerBox.setText("")
+        updateQuestionAndAnswer()
     }
 
 }
