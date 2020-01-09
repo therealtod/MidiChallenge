@@ -18,7 +18,7 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@id/toolbar"
         android:layout_marginTop="@dimen/question_counter_margin"
-        android:text="@string/game_activity_counter_txt" />
+        android:text="@string/game_activity_question_counter_text" />
 
     <TextView
         android:id="@+id/textView2"
@@ -27,7 +27,7 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@id/textView3"
         android:layout_marginTop="@dimen/suggestion_margin"
-        android:text="@string/game_activity_suggestion_txt" />
+        android:text="@string/game_activity_suggestion_text" />
 
     <LinearLayout
         android:id="@+id/centerLayout"
@@ -46,7 +46,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|center_vertical"
-            android:text="@string/game_activity_play_btn"/>
+            android:text="@string/game_activity_play_button"/>
     </LinearLayout>
 
     <EditText
@@ -64,6 +64,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="@string/game_activity_confirm_btn" />
+        android:text="@string/game_activity_confirm_button" />
 
 </RelativeLayout>
