@@ -5,8 +5,7 @@
     <string name="nav_header_title">Android Studio</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Sed chage size layout when keybord appear
-        ttings</string>
+    <string name="action_settings">Change size layout when keyboard appear</string>
 
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
@@ -17,15 +16,19 @@
     <string name="title_activity_game">GameActivity</string>
 
     <!--Main activity components-->
-    <string name="content_main_play_btn">Play</string>
+    <string name="content_main_play_btn">Start</string>
 
     <!--Activity game components-->
-    <string name="game_activity_counter_txt">Domanda numero:</string>
-    <string name="game_activity_suggestion_txt">Suggerimento:</string>
-    <string name="game_activity_play_btn">Play</string>
-    <string name="game_activity_confirm_btn">Conferma</string>
-    <string name="number_picker_btn_less">-</string>
-    <string name="number_picker_txt">0</string>
-    <string name="number_picker_btn_more">+</string>
+    <string name="game_activity_question_counter_text">Domanda numero:</string>
+    <string name="game_activity_suggestion_text">Indizio:</string>
+    <string name="game_activity_play_button">Play</string>
+    <string name="game_activity_confirm_button">Conferma</string>
+    <string name="number_picker_less_button">-</string>
+    <string name="number_picker_text">1</string>
+    <string name="number_picker_more_button">+</string>
+
+    <!--Dialog game components-->
+    <string name="dialog_correct_answer_text">RISPOSTA CORRETTA!</string>
+    <string name="dialog_next_button">Continua</string>
 
 </resources>

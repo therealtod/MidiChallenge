@@ -18,9 +18,7 @@ class HorizontalNumberPicker(context: Context, @Nullable attrs: AttributeSet) :
     private val btnLess: Button
     private val btnMore: Button
 
-    /***
-     * GETTERS & SETTERS
-     */
+    /** GETTERS & SETTERS */
 
     var value: Int
         get() {
@@ -31,7 +29,6 @@ class HorizontalNumberPicker(context: Context, @Nullable attrs: AttributeSet) :
                 } catch (ex: NumberFormatException) {
                     Log.e("HorizontalNumberPicker", ex.toString())
                 }
-
             }
             return 0
         }
@@ -44,17 +41,13 @@ class HorizontalNumberPicker(context: Context, @Nullable attrs: AttributeSet) :
         View.inflate(context, R.layout.horizontal_number_picker, this)
 
         etNumber = findViewById(R.id.et_number)
-
         btnLess = findViewById(R.id.btn_less)
         btnLess.setOnClickListener(AddHandler(-1))
-
         btnMore = findViewById(R.id.btn_more)
         btnMore.setOnClickListener(AddHandler(1))
     }
 
-    /***
-     * HANDLERS
-     */
+    /** HANDLERS */
 
     private inner class AddHandler(internal val diff: Int) : OnClickListener {
 
@@ -69,9 +62,9 @@ class HorizontalNumberPicker(context: Context, @Nullable attrs: AttributeSet) :
         }
     }
 
-
     fun freezebutton() {
-        btnLess.visibility = View.GONE
-        btnMore.visibility = View.GONE
+        btnLess.isEnabled = false
+        btnMore.isEnabled = false
+        etNumber?.isEnabled = false
     }
 }

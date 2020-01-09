@@ -42,6 +42,7 @@ class MainActivity : AppCompatActivity() {
         button.setOnClickListener { view ->
             val intent = Intent(this, GameActivity::class.java).apply {
             }
+            intent.putExtra("CURRENT_QUESTION", 0);
             startActivity(intent)
         }
     }
