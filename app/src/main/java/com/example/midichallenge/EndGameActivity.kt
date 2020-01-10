@@ -4,24 +4,35 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.TextView
+import kotlinx.android.synthetic.main.activity_end_game.view.*
 
 class EndGameActivity : AppCompatActivity() {
+
+    private var finalScore :Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_end_game)
 
+        finalScore = getIntent().getIntExtra("FINAL_SCORE", 0)
+        val scoreTextView : TextView = findViewById(R.id.endGameScore)
+        scoreTextView.setText(finalScore.toString())
+
         val playAgainButton: Button = findViewById(R.id.playAgainButton)
 
         playAgainButton.setOnClickListener { view ->
-            val intent = Intent(this, GameActivity::class.java)
+            val intent = Intent(this, ClassicGameActivity::class.java)
+            intent.putExtra("CURRENT_QUESTION", -1)
             startActivity(intent)
+            finish()
         }
     }
 
     override fun onBackPressed() {
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
+        val openMainActivity = Intent(this, MainActivity::class.java)
+        openMainActivity.flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
+        startActivityIfNeeded(openMainActivity, 0)
         finish()
     }
 }

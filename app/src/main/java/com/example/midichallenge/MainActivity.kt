@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
 
         val button: Button = findViewById(R.id.button)
         button.setOnClickListener { view ->
-            val intent = Intent(this, GameActivity::class.java)
+            val intent = Intent(this, ClassicGameActivity::class.java)
             intent.putExtra("CURRENT_QUESTION", -1)
             startActivity(intent)
         }
@@ -55,6 +55,10 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    override fun onBackPressed() {
+        finish()
     }
 
 }
