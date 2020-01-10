@@ -10,19 +10,21 @@ import android.view.Window
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.midichallenge.models.ClassicGame
 import com.example.midichallenge.views.HorizontalNumberPicker
+import kotlinx.android.synthetic.main.horizontal_number_picker.view.*
 
-class GameActivity : AppCompatActivity() {
+
+class ClassicGameActivity : AppCompatActivity() {
 
     private lateinit var mediaPlayer: MediaPlayer
     private lateinit var game: ClassicGame
     private val numberPickerMaxValue = 25
-    private val numberPickerMinValue = 1
+    private val numberPickerMinValue = 0
     private var currentQuestionNumber : Int = 0
     private var expectedAnswer = ""
+    private var currentScore = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,15 +54,15 @@ class GameActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
+        val openMainActivity = Intent(this, MainActivity::class.java)
+        openMainActivity.flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
+        startActivityIfNeeded(openMainActivity, 0)
         finish()
     }
 
 
-    //This dialog is show to the user after he ans correct
     fun displayDialog( isResponseCorrect : Boolean) {
-        val dialog = Dialog(this@GameActivity)
+        val dialog = Dialog(this@ClassicGameActivity)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         if (dialog.window != null) {
             val colorDrawable = ColorDrawable(Color.TRANSPARENT)
@@ -78,6 +80,7 @@ class GameActivity : AppCompatActivity() {
         if(isResponseCorrect) {
             responseText.setText(R.string.dialog_correct_answer_text)
             responseText.setTextColor(Color.GREEN)
+            updateScore()
         }
         else {
             responseText.setText(R.string.dialog_wrong_answer_text)
@@ -90,9 +93,10 @@ class GameActivity : AppCompatActivity() {
                 updateView()
             }
             else {
-                //crea nuova activity EndGame
-                val toast = Toast.makeText(applicationContext, "PARTITA CONCLUSA", Toast.LENGTH_SHORT)
-                toast.show()
+                val intent = Intent(this, EndGameActivity::class.java)
+                intent.putExtra("FINAL_SCORE", currentScore)
+                startActivity(intent)
+                finish()
             }
         }
     }
@@ -109,6 +113,12 @@ class GameActivity : AppCompatActivity() {
         val answerBox: EditText = findViewById(R.id.editText)
         answerBox.setText("")
         updateQuestionAndAnswer()
+    }
+
+    fun updateScore() {
+        val numberPicker: HorizontalNumberPicker = findViewById(R.id.horizontalNumberPicker)
+        val numberPickerScore = numberPicker.value
+        currentScore += numberPickerMaxValue - numberPickerScore
     }
 
 }

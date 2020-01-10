@@ -36,7 +36,7 @@
             android:layout_height="100dp"
             android:gravity="center_vertical"
             android:text="@string/end_game_score_number"
-            android:textColor="@color/white"
+            android:textColor="@color/orange"
             android:textSize="20sp"/>
 
     </LinearLayout>

@@ -25,12 +25,12 @@
     <string name="game_activity_play_button">Play</string>
     <string name="game_activity_confirm_button">Conferma</string>
     <string name="number_picker_less_button">-</string>
-    <string name="number_picker_text">1</string>
+    <string name="number_picker_text">0</string>
     <string name="number_picker_more_button">+</string>
 
     <!--EndGameActivity components-->
     <string name="end_game_text">FINE!</string>
-    <string name="end_game_score_text">Il tuo punteggio:</string>
+    <string name="end_game_score_text">Il tuo punteggio:\u0020</string>
     <string name="end_game_score_number">TOT</string>
     <string name="end_game_play_again_button">Ricomincia</string>
 
