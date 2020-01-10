@@ -15,9 +15,9 @@ class EndGameActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_end_game)
 
-        finalScore = getIntent().getIntExtra("FINAL_SCORE", 0)
+        finalScore = intent.getIntExtra("FINAL_SCORE", 0)
         val scoreTextView : TextView = findViewById(R.id.endGameScore)
-        scoreTextView.setText(finalScore.toString())
+        scoreTextView.text = finalScore.toString()
 
         val playAgainButton: Button = findViewById(R.id.playAgainButton)
 

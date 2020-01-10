@@ -2,5 +2,6 @@
 <resources>
 
     <integer name="number_of_questions_classic_game_mode">3</integer>
+    <integer name="max_number_notes_classic_game_mode">25</integer>
 
 </resources>
