@@ -24,7 +24,6 @@ class ClassicGameActivity : AppCompatActivity() {
     private val numberPickerMinValue = 0
     private var currentQuestionNumber : Int = 0
     private var expectedAnswer = ""
-    private var currentScore = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,11 +32,12 @@ class ClassicGameActivity : AppCompatActivity() {
 
         currentQuestionNumber = getIntent().getIntExtra("CURRENT_QUESTION", 0)
         game = ClassicGame(this)
-        updateView()
+        updateQuestionAndAnswer()
 
         val numberPicker: HorizontalNumberPicker = findViewById(R.id.horizontalNumberPicker)
         numberPicker.max = numberPickerMaxValue
         numberPicker.min = numberPickerMinValue
+        val notesUsed = numberPicker.value
         val playButton: Button = findViewById(R.id.button7)
         val answerBox: EditText = findViewById(R.id.editText)
         val confirmButton: Button = findViewById(R.id.button2)
@@ -49,7 +49,7 @@ class ClassicGameActivity : AppCompatActivity() {
             }
 
         confirmButton.setOnClickListener{ view ->
-            displayDialog(answerBox.getText().toString() == expectedAnswer)
+            displayDialog(answerBox.getText().toString() == expectedAnswer, notesUsed)
         }
     }
 
@@ -61,7 +61,7 @@ class ClassicGameActivity : AppCompatActivity() {
     }
 
 
-    fun displayDialog( isResponseCorrect : Boolean) {
+    fun displayDialog( isResponseCorrect : Boolean, notesUsed: Int) {
         val dialog = Dialog(this@ClassicGameActivity)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         if (dialog.window != null) {
@@ -80,7 +80,7 @@ class ClassicGameActivity : AppCompatActivity() {
         if(isResponseCorrect) {
             responseText.setText(R.string.dialog_correct_answer_text)
             responseText.setTextColor(Color.GREEN)
-            updateScore()
+            game.answerQuestion(notesUsed, currentQuestionNumber)
         }
         else {
             responseText.setText(R.string.dialog_wrong_answer_text)
@@ -91,10 +91,11 @@ class ClassicGameActivity : AppCompatActivity() {
             dialog.dismiss()
             if(currentQuestionNumber < this.resources.getInteger(R.integer.number_of_questions_classic_game_mode) - 1) {
                 updateView()
+                updateQuestionAndAnswer()
             }
             else {
                 val intent = Intent(this, EndGameActivity::class.java)
-                intent.putExtra("FINAL_SCORE", currentScore)
+                intent.putExtra("FINAL_SCORE", game.getScore())
                 startActivity(intent)
                 finish()
             }
@@ -112,13 +113,5 @@ class ClassicGameActivity : AppCompatActivity() {
     fun updateView() {
         val answerBox: EditText = findViewById(R.id.editText)
         answerBox.setText("")
-        updateQuestionAndAnswer()
     }
-
-    fun updateScore() {
-        val numberPicker: HorizontalNumberPicker = findViewById(R.id.horizontalNumberPicker)
-        val numberPickerScore = numberPicker.value
-        currentScore += numberPickerMaxValue - numberPickerScore
-    }
-
 }
