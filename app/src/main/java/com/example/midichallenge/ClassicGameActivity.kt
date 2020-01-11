@@ -20,8 +20,6 @@ class ClassicGameActivity : AppCompatActivity() {
 
     private lateinit var mediaPlayer: MediaPlayer
     private lateinit var game: ClassicGame
-    private val numberPickerMaxValue = 25
-    private val numberPickerMinValue = 0
     private var currentQuestionNumber : Int = 0
     private var expectedAnswer = ""
 
@@ -35,8 +33,8 @@ class ClassicGameActivity : AppCompatActivity() {
         updateQuestionAndAnswer()
 
         val numberPicker: HorizontalNumberPicker = findViewById(R.id.horizontalNumberPicker)
-        numberPicker.max = numberPickerMaxValue
-        numberPicker.min = numberPickerMinValue
+        numberPicker.max = resources.getInteger(R.integer.max_number_notes_classic_game_mode)
+        numberPicker.min = 0
         val notesUsed = numberPicker.value
         val playButton: Button = findViewById(R.id.button7)
         val answerBox: EditText = findViewById(R.id.editText)
