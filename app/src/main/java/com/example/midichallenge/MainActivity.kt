@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import android.view.Menu
 import android.widget.Button
+import com.example.midichallenge.ui.login.LoginActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -42,6 +43,12 @@ class MainActivity : AppCompatActivity() {
         button.setOnClickListener { view ->
             val intent = Intent(this, ClassicGameActivity::class.java)
             intent.putExtra("CURRENT_QUESTION", -1)
+            startActivity(intent)
+        }
+
+        val signinButton: Button = findViewById(R.id.button3)
+        signinButton.setOnClickListener { view ->
+            val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
     }

@@ -1,6 +1,7 @@
 package com.example.midichallenge.ui.login
 
 import android.app.Activity
+import android.content.Intent
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -10,10 +11,8 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ProgressBar
-import android.widget.Toast
+import android.widget.*
+import androidx.core.content.ContextCompat
 
 import com.example.midichallenge.R
 
@@ -26,10 +25,10 @@ class LoginActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_login)
 
-        val username = findViewById<EditText>(R.id.username)
-        val password = findViewById<EditText>(R.id.password)
-        val login = findViewById<Button>(R.id.login)
-        val loading = findViewById<ProgressBar>(R.id.loading)
+        val username = findViewById<EditText>(R.id.login_username)
+        val password = findViewById<EditText>(R.id.login_password)
+        val loginButton = findViewById<Button>(R.id.login_button)
+        val loading = findViewById<ProgressBar>(R.id.login_loading)
 
         loginViewModel = ViewModelProviders.of(this, LoginViewModelFactory())
             .get(LoginViewModel::class.java)
@@ -38,7 +37,7 @@ class LoginActivity : AppCompatActivity() {
             val loginState = it ?: return@Observer
 
             // disable login button unless both username / password is valid
-            login.isEnabled = loginState.isDataValid
+            loginButton.isEnabled = loginState.isDataValid
 
             if (loginState.usernameError != null) {
                 username.error = getString(loginState.usernameError)
@@ -90,10 +89,17 @@ class LoginActivity : AppCompatActivity() {
                 false
             }
 
-            login.setOnClickListener {
+            loginButton.setOnClickListener {
                 loading.visibility = View.VISIBLE
                 loginViewModel.login(username.text.toString(), password.text.toString())
             }
+        }
+
+        val signUpLink : TextView = findViewById(R.id.login_signUp_link)
+        signUpLink.setOnClickListener { view ->
+            val intent = Intent(this, SignUpActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 
