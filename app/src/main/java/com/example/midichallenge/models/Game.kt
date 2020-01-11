@@ -16,12 +16,7 @@ class ClassicGame (val context: Context){
     }
 
     fun getScore() : Int{
-        var tot = 0
-        for (question in questions) {
-            tot += question.points
-        }
-        return tot
-        //return questions.reduce{a, b -> a.points + b.points}
+        return questions.fold(0){sum, x -> sum + x.points}
     }
 
     fun answerQuestion(notesUsed: Int, questionNumber: Int) {
