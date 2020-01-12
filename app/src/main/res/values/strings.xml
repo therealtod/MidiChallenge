@@ -19,11 +19,13 @@
     <!--Main activity components-->
     <string name="content_main_play_btn">Start</string>
 
-    <!--GameActivity components-->
-    <string name="game_activity_question_counter_text">Domanda numero:</string>
-    <string name="game_activity_suggestion_text">Indizio:</string>
-    <string name="game_activity_play_button">Play</string>
-    <string name="game_activity_confirm_button">Conferma</string>
+    <!--ClassicGameActivity components-->
+    <string name="classic_game_activity_points_counter_text">0</string>
+    <string name="classic_game_activity_question_counter_text">Domanda numero:\u0020</string>
+    <string name="classic_game_activity_question_counter_number">1</string>
+    <string name="classic_game_activity_suggestion_text">Indizio:</string>
+    <string name="classic_game_activity_play_button">Play</string>
+    <string name="classic_game_activity_confirm_button">Conferma</string>
     <string name="number_picker_less_button">-</string>
     <string name="number_picker_text">0</string>
     <string name="number_picker_more_button">+</string>
@@ -46,7 +48,6 @@
     <string name="sign_up_prompt_password_confirm">Conferma Password</string>
     <string name="sign_up_button_text">Registrati</string>
     <string name="sign_up_link_login"><u>Hai gia un account? Accedi</u></string>
-
     <string name="sign_up_invalid_username">Nome utente non valido</string>
     <string name="sign_up_invalid_password">La password deve essere di almeno 5 catratteri</string>
     <string name="sign_up_failed">"Registrazione fallita"</string>
@@ -63,7 +64,5 @@
     <!--Shared components LoginActivity & SignUpActivity-->
     <string name="prompt_password">Password</string>
     <string name="welcome">"Benvenuto!"</string>
-
-
 
 </resources>

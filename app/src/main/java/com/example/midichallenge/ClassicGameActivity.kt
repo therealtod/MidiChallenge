@@ -13,7 +13,6 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.midichallenge.models.ClassicGame
 import com.example.midichallenge.views.HorizontalNumberPicker
-import kotlinx.android.synthetic.main.horizontal_number_picker.view.*
 
 
 class ClassicGameActivity : AppCompatActivity() {
@@ -26,7 +25,7 @@ class ClassicGameActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_game)
+        setContentView(R.layout.activity_classic_game)
 
         currentQuestionNumber = getIntent().getIntExtra("CURRENT_QUESTION", 0)
         game = ClassicGame(this)
@@ -109,7 +108,11 @@ class ClassicGameActivity : AppCompatActivity() {
     }
 
     fun updateView() {
+        val currentPoints: TextView = findViewById(R.id.textView5)
+        val counterQuestionBox: TextView = findViewById(R.id.textView4)
         val answerBox: EditText = findViewById(R.id.editText)
+        currentPoints.setText(game.getScore().toString())
+        counterQuestionBox.setText((currentQuestionNumber + 1).toString())
         answerBox.setText("")
     }
 }
