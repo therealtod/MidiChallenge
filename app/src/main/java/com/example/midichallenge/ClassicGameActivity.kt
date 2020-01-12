@@ -22,14 +22,17 @@ class ClassicGameActivity : AppCompatActivity() {
     private var currentQuestionNumber : Int = 0
     private var expectedAnswer = ""
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        try {
+            this.supportActionBar!!.hide()
+        } catch (e: NullPointerException) {}
         setContentView(R.layout.activity_classic_game)
 
         currentQuestionNumber = getIntent().getIntExtra("CURRENT_QUESTION", 0)
         game = ClassicGame(this)
         updateQuestionAndAnswer()
+        updateView()
 
         val numberPicker: HorizontalNumberPicker = findViewById(R.id.horizontalNumberPicker)
         numberPicker.max = resources.getInteger(R.integer.max_number_notes_classic_game_mode)
@@ -56,7 +59,6 @@ class ClassicGameActivity : AppCompatActivity() {
         startActivityIfNeeded(openMainActivity, 0)
         finish()
     }
-
 
     fun displayDialog( isResponseCorrect : Boolean, notesUsed: Int) {
         val dialog = Dialog(this@ClassicGameActivity)
@@ -87,8 +89,8 @@ class ClassicGameActivity : AppCompatActivity() {
         buttonNext.setOnClickListener { view ->
             dialog.dismiss()
             if(currentQuestionNumber < this.resources.getInteger(R.integer.number_of_questions_classic_game_mode) - 1) {
-                updateView()
                 updateQuestionAndAnswer()
+                updateView()
             }
             else {
                 val intent = Intent(this, EndGameActivity::class.java)

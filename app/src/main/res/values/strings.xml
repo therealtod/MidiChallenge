@@ -1,5 +1,6 @@
 <resources>
 
+    <!--Default components-->
     <string name="app_name">MidiChallenge</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -7,44 +8,26 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
-
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="menu_tools">Tools</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
-    <string name="title_activity_game">GameActivity</string>
 
-    <!--Main activity components-->
+    <!--Activities title-->
+    <string name="title_activity_classic_game">ClassicGameActivity</string>
+    <string name="title_activity_sign_up">Registrazione</string>
+    <string name="title_activity_login">Login</string>
+    <string name="title_activity_end_game">EndGameActivity</string>
+
+    <!--content_main components-->
     <string name="content_main_play_btn">Start</string>
 
-    <!--ClassicGameActivity components-->
-    <string name="classic_game_activity_points_counter_text">0</string>
-    <string name="classic_game_activity_question_counter_text">Domanda numero:\u0020</string>
-    <string name="classic_game_activity_question_counter_number">1</string>
-    <string name="classic_game_activity_suggestion_text">Indizio:</string>
-    <string name="classic_game_activity_play_button">Play</string>
-    <string name="classic_game_activity_confirm_button">Conferma</string>
-    <string name="number_picker_less_button">-</string>
-    <string name="number_picker_text">0</string>
-    <string name="number_picker_more_button">+</string>
-
-    <!--EndGameActivity components-->
-    <string name="end_game_text">FINE!</string>
-    <string name="end_game_score_text">Il tuo punteggio:\u0020</string>
-    <string name="end_game_score_number">TOT</string>
-    <string name="end_game_play_again_button">Ricomincia</string>
-
-    <!--Dialog components-->
-    <string name="dialog_correct_answer_text">RISPOSTA CORRETTA!</string>
-    <string name="dialog_wrong_answer_text">RISPOSTA SBAGLIATA!</string>
-    <string name="dialog_next_button">Continua</string>
-
-    <!--SignUpActivity components-->
-    <string name="title_activity_sign_up">Registrazione</string>
+    <!--activity_sign_up components-->
     <string name="sign_up_prompt_nickname">Nickname</string>
     <string name="sign_up_prompt_email">Email</string>
+    <string name="sign_up_prompt_password">Password</string>
     <string name="sign_up_prompt_password_confirm">Conferma Password</string>
     <string name="sign_up_button_text">Registrati</string>
     <string name="sign_up_link_login"><u>Hai gia un account? Accedi</u></string>
@@ -52,17 +35,36 @@
     <string name="sign_up_invalid_password">La password deve essere di almeno 5 catratteri</string>
     <string name="sign_up_failed">"Registrazione fallita"</string>
 
-    <!--LoginActivity components-->
-    <string name="title_activity_login">Login</string>
+    <!--activity_login components-->
     <string name="login_prompt_nickname_or_email">Nickname o email</string>
+    <string name="login_prompt_password">Password</string>
     <string name="login_button_text">Accedi</string>
+    <string name="login_welcome">"Benvenuto!"</string>
     <string name="login_link_sign_up"><u>Non hai un account? Registrati</u></string>
     <string name="login_invalid_username">Utente non registrato</string>
     <string name="login_invalid_password">Combinazione utente-password non validi</string>
     <string name="login_failed">"Login fallito"</string>
 
-    <!--Shared components LoginActivity & SignUpActivity-->
-    <string name="prompt_password">Password</string>
-    <string name="welcome">"Benvenuto!"</string>
+    <!--activity_classic_game components-->
+    <string name="classic_game_activity_points_counter_text">0</string>
+    <string name="classic_game_activity_question_counter_text">Domanda numero:\u0020</string>
+    <string name="classic_game_activity_question_counter_number">0</string>
+    <string name="classic_game_activity_suggestion_text">Indizio:</string>
+    <string name="classic_game_activity_play_button">Play</string>
+    <string name="classic_game_activity_confirm_button">Conferma</string>
+    <string name="number_picker_less_button">-</string>
+    <string name="number_picker_text">0</string>
+    <string name="number_picker_more_button">+</string>
+
+    <!--activity_end_game components-->
+    <string name="end_game_text">FINE!</string>
+    <string name="end_game_score_text">Il tuo punteggio:\u0020</string>
+    <string name="end_game_score_number">TOT</string>
+    <string name="end_game_play_again_button">Ricomincia</string>
+
+    <!--dialog components-->
+    <string name="dialog_correct_answer_text">RISPOSTA CORRETTA!</string>
+    <string name="dialog_wrong_answer_text">RISPOSTA SBAGLIATA!</string>
+    <string name="dialog_next_button">Continua</string>
 
 </resources>
