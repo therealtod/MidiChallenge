@@ -6,6 +6,6 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".ClassicGameActivity"
-    tools:showIn="@layout/activity_game">
+    tools:showIn="@layout/activity_classic_game">
 
 </androidx.constraintlayout.widget.ConstraintLayout>
