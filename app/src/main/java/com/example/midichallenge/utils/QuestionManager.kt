@@ -11,7 +11,7 @@ class QuestionManager(val context: Context) {
     private val gson: Gson = Gson()
     private val questionsList: QuestionsList
     init{
-        val reader : BufferedReader = BufferedReader(InputStreamReader(context.assets.open("songList.json")))
+        val reader : BufferedReader = BufferedReader(InputStreamReader(context.assets.open("questionsList.json")))
         questionsList = gson.fromJson(reader, QuestionsList::class.java)
     }
 
