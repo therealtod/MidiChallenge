@@ -1,6 +1,8 @@
 package com.example.midichallenge.models
 
-data class Question(val sID: Int, val suggestion: String, val answer: String)
+data class Song(val id : Int, val title : String, val author : String, val filename : String)
+
+data class Question(val Song : Song, val suggestion: String, val answer: String)
 
 data class QuestionsList (val questions: List<Question>)
 
