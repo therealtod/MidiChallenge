@@ -21,6 +21,7 @@ class ClassicGameActivity : AppCompatActivity() {
     private lateinit var game: ClassicGame
     private var currentQuestionNumber : Int = 0
     private var expectedAnswer = ""
+    private var isPlayed = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +32,7 @@ class ClassicGameActivity : AppCompatActivity() {
         } catch (e: NullPointerException) {}
 
         val numberPicker: HorizontalNumberPicker = findViewById(R.id.horizontalNumberPicker)
-        val notesUsed = numberPicker.value
+        var notesUsed = 0
         val playButton: Button = findViewById(R.id.button7)
         val answerBox: EditText = findViewById(R.id.editText)
         val confirmButton: Button = findViewById(R.id.button2)
@@ -40,18 +41,22 @@ class ClassicGameActivity : AppCompatActivity() {
         numberPicker.min = 0
         currentQuestionNumber = getIntent().getIntExtra("CURRENT_QUESTION", 0)
         game = ClassicGame(this)
+        mediaPlayer = MediaPlayer.create(this, R.raw.certe_notti)
         updateQuestionAndAnswer()
         updateView()
 
         playButton.setOnClickListener{ view ->
-            mediaPlayer = MediaPlayer.create(this, R.raw.certe_notti)
+            isPlayed = true
+            notesUsed = numberPicker.value
             mediaPlayer.start()
             numberPicker.freezeButtons()
             }
 
         confirmButton.setOnClickListener{ view ->
-            mediaPlayer.stop()
-            displayDialog(answerBox.getText().toString() == expectedAnswer, notesUsed)
+            if(mediaPlayer.isPlaying) {
+                mediaPlayer.stop()
+            }
+            displayDialog(answerBox.getText().toString() == expectedAnswer, notesUsed, isPlayed)
         }
 
     }
@@ -63,7 +68,7 @@ class ClassicGameActivity : AppCompatActivity() {
         finish()
     }
 
-    fun displayDialog( isResponseCorrect : Boolean, notesUsed: Int) {
+    fun displayDialog( isResponseCorrect : Boolean, notesUsed: Int, isPlayed : Boolean) {
         val dialog = Dialog(this@ClassicGameActivity)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         if (dialog.window != null) {
@@ -80,7 +85,7 @@ class ClassicGameActivity : AppCompatActivity() {
         if(isResponseCorrect) {
             responseText.setText(R.string.dialog_correct_answer_text)
             responseText.setTextColor(Color.GREEN)
-            game.answerQuestion(notesUsed, currentQuestionNumber)
+            game.answerQuestion(notesUsed, currentQuestionNumber, isPlayed)
         }
         else {
             responseText.setText(R.string.dialog_wrong_answer_text)
@@ -119,6 +124,7 @@ class ClassicGameActivity : AppCompatActivity() {
         counterQuestionBox.setText((currentQuestionNumber + 1).toString())
         numberPicker.value = 0
         numberPicker.unfreezeButtons()
+        isPlayed = false
         answerBox.setText("")
     }
 
