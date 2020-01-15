@@ -19,13 +19,16 @@ class ClassicGame (val context: Context){
         return questions.fold(0){sum, x -> sum + x.points}
     }
 
-    fun answerQuestion(notesUsed: Int, questionNumber: Int) {
-        val max = context.resources.getInteger(R.integer.max_number_notes_classic_game_mode)
-        if (notesUsed in 0..max) {
-            questions[questionNumber].points = max - notesUsed
-        }
-        else {
-            throw Error("Value passed not in correct range")
+    fun answerQuestion(notesUsed: Int, questionNumber: Int, isPlayed : Boolean) {
+        val max = context.resources.getInteger(R.integer.max_number_notes_classic_game_mode) + 1
+        if(isPlayed) {
+            if (notesUsed in 0..max) {
+                questions[questionNumber].points = max - notesUsed
+            } else {
+                throw Error("Value passed not in correct range")
+            }
+        } else {
+            questions[questionNumber].points = max
         }
     }
 

@@ -37,9 +37,7 @@ class HorizontalNumberPicker(context: Context, @Nullable attrs: AttributeSet) :
         }
 
     init {
-
         View.inflate(context, R.layout.horizontal_number_picker, this)
-
         etNumber = findViewById(R.id.et_number)
         btnLess = findViewById(R.id.btn_less)
         btnLess.setOnClickListener(AddHandler(-1))

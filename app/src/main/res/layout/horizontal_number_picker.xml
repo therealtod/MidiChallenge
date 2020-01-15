@@ -28,4 +28,5 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:text="@string/number_picker_more_button" />
+
 </LinearLayout>
