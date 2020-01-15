@@ -62,9 +62,13 @@ class HorizontalNumberPicker(context: Context, @Nullable attrs: AttributeSet) :
         }
     }
 
-    fun freezebutton() {
+    fun freezeButtons() {
         btnLess.isEnabled = false
         btnMore.isEnabled = false
-        etNumber?.isEnabled = false
+    }
+
+    fun unfreezeButtons() {
+        btnLess.isEnabled = true
+        btnMore.isEnabled = true
     }
 }

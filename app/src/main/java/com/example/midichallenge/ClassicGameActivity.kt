@@ -24,33 +24,36 @@ class ClassicGameActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_classic_game)
+
         try {
             this.supportActionBar!!.hide()
         } catch (e: NullPointerException) {}
-        setContentView(R.layout.activity_classic_game)
-
-        currentQuestionNumber = getIntent().getIntExtra("CURRENT_QUESTION", 0)
-        game = ClassicGame(this)
-        updateQuestionAndAnswer()
-        updateView()
 
         val numberPicker: HorizontalNumberPicker = findViewById(R.id.horizontalNumberPicker)
-        numberPicker.max = resources.getInteger(R.integer.max_number_notes_classic_game_mode)
-        numberPicker.min = 0
         val notesUsed = numberPicker.value
         val playButton: Button = findViewById(R.id.button7)
         val answerBox: EditText = findViewById(R.id.editText)
         val confirmButton: Button = findViewById(R.id.button2)
 
+        numberPicker.max = resources.getInteger(R.integer.max_number_notes_classic_game_mode)
+        numberPicker.min = 0
+        currentQuestionNumber = getIntent().getIntExtra("CURRENT_QUESTION", 0)
+        game = ClassicGame(this)
+        updateQuestionAndAnswer()
+        updateView()
+
         playButton.setOnClickListener{ view ->
             mediaPlayer = MediaPlayer.create(this, R.raw.certe_notti)
             mediaPlayer.start()
-            numberPicker.freezebutton()
+            numberPicker.freezeButtons()
             }
 
         confirmButton.setOnClickListener{ view ->
+            mediaPlayer.stop()
             displayDialog(answerBox.getText().toString() == expectedAnswer, notesUsed)
         }
+
     }
 
     override fun onBackPressed() {
@@ -71,10 +74,8 @@ class ClassicGameActivity : AppCompatActivity() {
         dialog.setCancelable(false)
         dialog.show()
 
-        val buttonNext: Button =
-            dialog.findViewById(R.id.dialogNext)
-        val responseText : TextView =
-            dialog.findViewById(R.id.responseText)
+        val buttonNext: Button = dialog.findViewById(R.id.dialogNextButton)
+        val responseText : TextView = dialog.findViewById(R.id.responseText)
 
         if(isResponseCorrect) {
             responseText.setText(R.string.dialog_correct_answer_text)
@@ -112,9 +113,13 @@ class ClassicGameActivity : AppCompatActivity() {
     fun updateView() {
         val currentPoints: TextView = findViewById(R.id.textView5)
         val counterQuestionBox: TextView = findViewById(R.id.textView4)
+        val numberPicker: HorizontalNumberPicker = findViewById(R.id.horizontalNumberPicker)
         val answerBox: EditText = findViewById(R.id.editText)
         currentPoints.setText(game.getScore().toString())
         counterQuestionBox.setText((currentQuestionNumber + 1).toString())
+        numberPicker.value = 0
+        numberPicker.unfreezeButtons()
         answerBox.setText("")
     }
+
 }

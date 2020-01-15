@@ -17,6 +17,8 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:textAlignment="center"
+        android:enabled="false"
+        android:textColor="@color/black"
         android:inputType="number"
         android:text="@string/number_picker_text" />
 
