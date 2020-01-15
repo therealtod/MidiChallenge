@@ -6,15 +6,16 @@
     android:layout_height="match_parent"
     android:background="@color/transparent"
     android:gravity="center">
+
     <View
         android:layout_width="match_parent"
         android:layout_height="50dp"></View>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="5dp">
-
         <TextView
             android:id="@+id/responseText"
             android:layout_width="match_parent"
@@ -23,19 +24,21 @@
             android:gravity="center"
             android:textSize="25sp"/>
     </LinearLayout>
-    <View
 
+    <View
         android:layout_width="match_parent"
         android:layout_height="50dp"></View>
 
     <Button
-        android:id="@+id/dialogNext"
+        android:id="@+id/dialogNextButton"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:background="#03A9F4"
         android:text="@string/dialog_next_button"
         android:textColor="@color/white" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="50dp"></View>
+
 </LinearLayout>

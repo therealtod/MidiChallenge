@@ -22,14 +22,18 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val toolbar: Toolbar = findViewById(R.id.toolbar)
-        setSupportActionBar(toolbar)
 
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host_fragment)
+        val startButton: Button = findViewById(R.id.button)
+        val loginButton: Button = findViewById(R.id.button3)
+
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
+
+        setSupportActionBar(toolbar)
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow,
@@ -39,15 +43,13 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        val button: Button = findViewById(R.id.button)
-        button.setOnClickListener { view ->
+        startButton.setOnClickListener { view ->
             val intent = Intent(this, ClassicGameActivity::class.java)
             intent.putExtra("CURRENT_QUESTION", -1)
             startActivity(intent)
         }
 
-        val signinButton: Button = findViewById(R.id.button3)
-        signinButton.setOnClickListener { view ->
+        loginButton.setOnClickListener { view ->
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }

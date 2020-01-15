@@ -13,16 +13,17 @@ class EndGameActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_end_game)
+
         try {
             this.supportActionBar!!.hide()
         } catch (e: NullPointerException) {}
-        setContentView(R.layout.activity_end_game)
+
+        val scoreTextView : TextView = findViewById(R.id.endGameScore)
+        val playAgainButton: Button = findViewById(R.id.playAgainButton)
 
         finalScore = intent.getIntExtra("FINAL_SCORE", 0)
-        val scoreTextView : TextView = findViewById(R.id.endGameScore)
         scoreTextView.text = finalScore.toString()
-
-        val playAgainButton: Button = findViewById(R.id.playAgainButton)
 
         playAgainButton.setOnClickListener { view ->
             val intent = Intent(this, ClassicGameActivity::class.java)
