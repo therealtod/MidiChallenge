@@ -13,6 +13,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.midichallenge.models.ClassicGame
 import com.example.midichallenge.views.HorizontalNumberPicker
+import com.example.midichallenge.views.PlayerScore
 
 
 class ClassicGameActivity : AppCompatActivity() {
@@ -41,9 +42,11 @@ class ClassicGameActivity : AppCompatActivity() {
         numberPicker.min = 0
         currentQuestionNumber = getIntent().getIntExtra("CURRENT_QUESTION", 0)
         game = ClassicGame(this)
-        mediaPlayer = MediaPlayer.create(this, R.raw.certe_notti)
+
         updateQuestionAndAnswer()
         updateView()
+
+        mediaPlayer = MediaPlayer.create(this, R.raw.donne_test)
 
         playButton.setOnClickListener{ view ->
             isPlayed = true

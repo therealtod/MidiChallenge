@@ -46,12 +46,12 @@
     <string name="login_failed">"Login fallito"</string>
 
     <!--activity_classic_game components-->
-    <string name="classic_game_activity_points_counter_text">0</string>
-    <string name="classic_game_activity_question_counter_text">Domanda numero:\u0020</string>
-    <string name="classic_game_activity_question_counter_number">0</string>
-    <string name="classic_game_activity_suggestion_text">Indizio:</string>
-    <string name="classic_game_activity_play_button">Play</string>
-    <string name="classic_game_activity_confirm_button">Conferma</string>
+    <string name="game_points_counter">0</string>
+    <string name="game_question_counter">0</string>
+    <string name="game_max_questions_number">/10</string>
+    <string name="game_suggestion_text">Indizio:</string>
+    <string name="game_play_button">Play</string>
+    <string name="game_confirm_button">Conferma</string>
     <string name="number_picker_less_button">-</string>
     <string name="number_picker_text">0</string>
     <string name="number_picker_more_button">+</string>
