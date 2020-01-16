@@ -13,7 +13,6 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.midichallenge.models.ClassicGame
 import com.example.midichallenge.views.HorizontalNumberPicker
-import com.example.midichallenge.views.PlayerScore
 
 
 class ClassicGameActivity : AppCompatActivity() {
@@ -119,8 +118,8 @@ class ClassicGameActivity : AppCompatActivity() {
     }
 
     fun updateView() {
-        val currentPoints: TextView = findViewById(R.id.textView5)
-        val counterQuestionBox: TextView = findViewById(R.id.textView4)
+        val currentPoints: TextView = findViewById(R.id.textViewPlayerScore)
+        val counterQuestionBox: TextView = findViewById(R.id.textViewQuestionCounter)
         val numberPicker: HorizontalNumberPicker = findViewById(R.id.horizontalNumberPicker)
         val answerBox: EditText = findViewById(R.id.editText)
         currentPoints.setText(game.getScore().toString())

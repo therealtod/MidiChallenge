@@ -16,8 +16,8 @@ class PlayerScore(context: Context, @Nullable attrs: AttributeSet) : LinearLayou
 
     init {
         View.inflate(context, R.layout.player_score, this)
-        playerScore = findViewById(R.id.textView5)
-        image = findViewById(R.id.imageView2)
+        playerScore = findViewById(R.id.textViewPlayerScore)
+        image = findViewById(R.id.imageViewPlayerScore)
     }
 
     var score: Int

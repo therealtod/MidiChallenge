@@ -17,28 +17,12 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start|center_vertical" />
 
-        <LinearLayout
-            android:id="@+id/counterLayout"
+        <com.example.midichallenge.views.QuestionCounter
+            android:id="@+id/linearLayoutQuestionCounter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center" >
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start|center_vertical"
-                android:text="@string/game_question_counter"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end|center_vertical"
-                android:text="@string/game_max_questions_number"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
-        </LinearLayout>
+            android:layout_gravity="center" />
+
     </androidx.appcompat.widget.Toolbar>
 
     <TextView
