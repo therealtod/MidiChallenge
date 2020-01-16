@@ -10,8 +10,7 @@ import android.widget.Button
 import androidx.annotation.Nullable
 import com.example.midichallenge.R
 
-class HorizontalNumberPicker(context: Context, @Nullable attrs: AttributeSet) :
-    LinearLayout(context, attrs) {
+class HorizontalNumberPicker(context: Context, @Nullable attrs: AttributeSet) : LinearLayout(context, attrs) {
     private val etNumber: EditText?
     var min: Int = 0
     var max: Int = 0
@@ -19,6 +18,15 @@ class HorizontalNumberPicker(context: Context, @Nullable attrs: AttributeSet) :
     private val btnMore: Button
 
     /** GETTERS & SETTERS */
+
+    init {
+        View.inflate(context, R.layout.horizontal_number_picker, this)
+        etNumber = findViewById(R.id.et_number)
+        btnLess = findViewById(R.id.btn_less)
+        btnLess.setOnClickListener(AddHandler(-1))
+        btnMore = findViewById(R.id.btn_more)
+        btnMore.setOnClickListener(AddHandler(1))
+    }
 
     var value: Int
         get() {
@@ -35,15 +43,6 @@ class HorizontalNumberPicker(context: Context, @Nullable attrs: AttributeSet) :
         set(value) {
             etNumber?.setText(value.toString())
         }
-
-    init {
-        View.inflate(context, R.layout.horizontal_number_picker, this)
-        etNumber = findViewById(R.id.et_number)
-        btnLess = findViewById(R.id.btn_less)
-        btnLess.setOnClickListener(AddHandler(-1))
-        btnMore = findViewById(R.id.btn_more)
-        btnMore.setOnClickListener(AddHandler(1))
-    }
 
     /** HANDLERS */
 
