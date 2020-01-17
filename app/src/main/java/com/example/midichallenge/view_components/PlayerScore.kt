@@ -1,4 +1,4 @@
-package com.example.midichallenge.views
+package com.example.midichallenge.view_components
 
 import android.widget.LinearLayout
 import android.content.Context

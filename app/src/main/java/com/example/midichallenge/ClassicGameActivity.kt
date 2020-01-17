@@ -12,7 +12,7 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.midichallenge.models.ClassicGame
-import com.example.midichallenge.views.HorizontalNumberPicker
+import com.example.midichallenge.view_components.HorizontalNumberPicker
 
 
 class ClassicGameActivity : AppCompatActivity() {

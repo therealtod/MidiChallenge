@@ -11,13 +11,13 @@
         android:background="?attr/colorPrimary"
         app:popupTheme="@style/AppTheme.PopupOverlay" >
 
-        <com.example.midichallenge.views.PlayerScore
+        <com.example.midichallenge.view_components.PlayerScore
             android:id="@+id/linearLayoutPlayerScore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start|center_vertical" />
 
-        <com.example.midichallenge.views.QuestionCounter
+        <com.example.midichallenge.view_components.QuestionCounter
             android:id="@+id/linearLayoutQuestionCounter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -42,7 +42,7 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:orientation="horizontal" >
-        <com.example.midichallenge.views.HorizontalNumberPicker
+        <com.example.midichallenge.view_components.HorizontalNumberPicker
             android:id="@+id/horizontalNumberPicker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
