@@ -58,7 +58,7 @@ class ClassicGameActivity : AppCompatActivity() {
             if(mediaPlayer.isPlaying) {
                 mediaPlayer.stop()
             }
-            displayDialog(answerBox.getText().toString() == expectedAnswer, notesUsed, isPlayed)
+            responseDialog(answerBox.getText().toString() == expectedAnswer, notesUsed, isPlayed)
         }
 
     }
@@ -70,7 +70,28 @@ class ClassicGameActivity : AppCompatActivity() {
         finish()
     }
 
-    fun displayDialog( isResponseCorrect : Boolean, notesUsed: Int, isPlayed : Boolean) {
+    fun updateQuestionAndAnswer() {
+        currentQuestionNumber++
+        val currentQuestion = game.questions.get(currentQuestionNumber)
+        val suggestionBox: TextView = findViewById(R.id.textView2)
+        expectedAnswer = currentQuestion.answer
+        suggestionBox.setText(currentQuestion.suggestion)
+    }
+
+    fun updateView() {
+        val currentPoints: TextView = findViewById(R.id.textViewPlayerScore)
+        val counterQuestionBox: TextView = findViewById(R.id.textViewQuestionCounter)
+        val numberPicker: HorizontalNumberPicker = findViewById(R.id.horizontalNumberPicker)
+        val answerBox: EditText = findViewById(R.id.editText)
+        currentPoints.setText(game.getScore().toString())
+        counterQuestionBox.setText((currentQuestionNumber + 1).toString() + " / " + resources.getInteger(R.integer.number_of_questions_classic_game_mode).toString())
+        numberPicker.value = 0
+        numberPicker.unfreezeButtons()
+        isPlayed = false
+        answerBox.setText("")
+    }
+
+    fun responseDialog(isResponseCorrect : Boolean, notesUsed: Int, isPlayed : Boolean) {
         val dialog = Dialog(this@ClassicGameActivity)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         if (dialog.window != null) {
@@ -107,27 +128,6 @@ class ClassicGameActivity : AppCompatActivity() {
                 finish()
             }
         }
-    }
-
-    fun updateQuestionAndAnswer() {
-        currentQuestionNumber++
-        val currentQuestion = game.questions.get(currentQuestionNumber)
-        val suggestionBox: TextView = findViewById(R.id.textView2)
-        expectedAnswer = currentQuestion.answer
-        suggestionBox.setText(currentQuestion.suggestion)
-    }
-
-    fun updateView() {
-        val currentPoints: TextView = findViewById(R.id.textViewPlayerScore)
-        val counterQuestionBox: TextView = findViewById(R.id.textViewQuestionCounter)
-        val numberPicker: HorizontalNumberPicker = findViewById(R.id.horizontalNumberPicker)
-        val answerBox: EditText = findViewById(R.id.editText)
-        currentPoints.setText(game.getScore().toString())
-        counterQuestionBox.setText((currentQuestionNumber + 1).toString())
-        numberPicker.value = 0
-        numberPicker.unfreezeButtons()
-        isPlayed = false
-        answerBox.setText("")
     }
 
 }

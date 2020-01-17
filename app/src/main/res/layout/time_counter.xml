@@ -15,7 +15,7 @@
         android:textSize="22sp"
         android:textStyle="bold"
         android:textColor="@color/yellow"
-        android:text="@string/time_counter"/>
+        android:text="@string/game_time_counter"/>
     <ImageView
         android:id="@+id/imageViewTimeCounter"
         android:layout_width="30sp"

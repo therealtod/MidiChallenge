@@ -47,15 +47,15 @@
 
     <!--game components-->
     <string name="game_points_counter">0</string>
-    <string name="game_question_counter">0</string>
-    <string name="game_max_questions_number">/10</string>
-    <string name="time_counter">0</string>
+    <string name="game_question_counter">curr/max</string>
+    <string name="game_time_counter">0</string>
     <string name="game_suggestion_text">Indizio:</string>
     <string name="game_play_button">Play</string>
     <string name="game_confirm_button">Conferma</string>
     <string name="number_picker_less_button">-</string>
     <string name="number_picker_text">0</string>
     <string name="number_picker_more_button">+</string>
+    <string name="game_classic_label">Sarabanda Quiz</string>
 
     <!--activity_end_game components-->
     <string name="end_game_text">FINE!</string>
