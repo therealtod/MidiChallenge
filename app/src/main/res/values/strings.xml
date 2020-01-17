@@ -45,10 +45,11 @@
     <string name="login_invalid_password">Combinazione utente-password non validi</string>
     <string name="login_failed">"Login fallito"</string>
 
-    <!--activity_classic_game components-->
+    <!--game components-->
     <string name="game_points_counter">0</string>
     <string name="game_question_counter">0</string>
     <string name="game_max_questions_number">/10</string>
+    <string name="time_counter">0</string>
     <string name="game_suggestion_text">Indizio:</string>
     <string name="game_play_button">Play</string>
     <string name="game_confirm_button">Conferma</string>

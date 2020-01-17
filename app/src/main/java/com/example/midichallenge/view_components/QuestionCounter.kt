@@ -1,11 +1,10 @@
-package com.example.midichallenge.views
+package com.example.midichallenge.view_components
 
 import android.widget.LinearLayout
 import android.content.Context
 import android.util.AttributeSet
 import android.util.Log
 import android.view.View
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.Nullable
 import com.example.midichallenge.R
