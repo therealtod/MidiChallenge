@@ -7,6 +7,8 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.Window
 import android.widget.Button
 import android.widget.EditText
@@ -14,6 +16,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.midichallenge.models.ClassicGame
 import com.example.midichallenge.view_components.HorizontalNumberPicker
+import kotlinx.android.synthetic.main.horizontal_number_picker.view.*
 
 
 class ClassicGameActivity : AppCompatActivity() {
@@ -34,12 +37,21 @@ class ClassicGameActivity : AppCompatActivity() {
 
         val numberPicker: HorizontalNumberPicker = findViewById(R.id.horizontalNumberPicker)
         var notesUsed = 0
-        val playButton: Button = findViewById(R.id.button7)
+        val playPauseButton : Button = findViewById(R.id.button7)
         val answerBox: EditText = findViewById(R.id.editText)
         val confirmButton: Button = findViewById(R.id.button2)
 
+        playPauseButton.isEnabled = false
         numberPicker.max = resources.getInteger(R.integer.max_number_notes_classic_game_mode)
         numberPicker.min = 0
+        numberPicker.et_number.addTextChangedListener(object : TextWatcher {
+            override fun onTextChanged(cs: CharSequence, arg1: Int, arg2: Int, arg3: Int) {
+                playPauseButton.isEnabled = (numberPicker.value != 0)
+            }
+            override fun beforeTextChanged(cs: CharSequence, arg1: Int, arg2: Int, arg3: Int) {}
+            override fun afterTextChanged(arg0: Editable) {}
+        })
+
         currentQuestionNumber = getIntent().getIntExtra("CURRENT_QUESTION", 0)
         game = ClassicGame(this)
 
@@ -47,13 +59,22 @@ class ClassicGameActivity : AppCompatActivity() {
         updateView()
 
         mediaPlayer = MediaPlayer.create(this, R.raw.donne_test)
+        mediaPlayer.setOnCompletionListener{
+            playPauseButton.setText("Play")
+        }
 
-        playButton.setOnClickListener{ view ->
-            isPlayed = true
-            notesUsed = numberPicker.value
-            mediaPlayer.start()
-            numberPicker.freezeButtons()
-            }
+        playPauseButton.setOnClickListener{ view ->
+                isPlayed = true
+                numberPicker.freezeButtons()
+                notesUsed = numberPicker.value
+                if (mediaPlayer.isPlaying) {
+                    mediaPlayer.pause()
+                    playPauseButton.setText("Play")
+                } else {
+                    mediaPlayer.start()
+                    playPauseButton.setText("Pause")
+                }
+        }
 
         confirmButton.setOnClickListener{ view ->
             if(mediaPlayer.isPlaying) {
@@ -61,10 +82,12 @@ class ClassicGameActivity : AppCompatActivity() {
             }
             responseDialog(answerBox.getText().toString() == expectedAnswer, notesUsed, isPlayed)
         }
-
     }
 
     /*
+    Todo: La nuova onBackPress non ha nessun intent ma la MainActivity non sembra essere
+          inizializzata di nuovo. Sembra tutto a posto ma per sicurezza: fare vedere a Toddiiiii
+
     override fun onBackPressed() {
         val openMainActivity = Intent(this, MainActivity::class.java)
         openMainActivity.flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
@@ -77,14 +100,12 @@ class ClassicGameActivity : AppCompatActivity() {
         AlertDialog.Builder(this)
             .setIcon(android.R.drawable.ic_dialog_alert)
             .setIconAttribute(android.R.attr.alertDialogIcon)
-            .setTitle("Chiusura dell'attività")
-            .setMessage("I tuoi progressi non saranno salvati,\nsei sicuro di voler uscire?")
-            .setPositiveButton(
-                "Yes"
-            ) { dialog, which ->
+            .setTitle("Stai uscendo dal gioco")
+            .setMessage("I tuoi progressi non saranno salvati, sei sicuro?")
+            .setPositiveButton("Yes") { dialog, which ->
                 if(mediaPlayer.isPlaying) {
                     mediaPlayer.stop()
-                }
+                    }
                 finish() }
             .setNegativeButton("No", null)
             .show()
@@ -102,12 +123,14 @@ class ClassicGameActivity : AppCompatActivity() {
         val currentPoints: TextView = findViewById(R.id.textViewPlayerScore)
         val counterQuestionBox: TextView = findViewById(R.id.textViewQuestionCounter)
         val numberPicker: HorizontalNumberPicker = findViewById(R.id.horizontalNumberPicker)
+        val playPauseButton : Button = findViewById(R.id.button7)
         val answerBox: EditText = findViewById(R.id.editText)
         currentPoints.setText(game.getScore().toString())
         counterQuestionBox.setText((currentQuestionNumber + 1).toString() + " / " + resources.getInteger(R.integer.number_of_questions_classic_game_mode).toString())
+        isPlayed = false
         numberPicker.value = 0
         numberPicker.unfreezeButtons()
-        isPlayed = false
+        playPauseButton.isEnabled = false
         answerBox.setText("")
     }
 
