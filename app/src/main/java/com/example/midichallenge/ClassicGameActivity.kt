@@ -1,5 +1,6 @@
 package com.example.midichallenge
 
+import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
@@ -63,11 +64,30 @@ class ClassicGameActivity : AppCompatActivity() {
 
     }
 
+    /*
     override fun onBackPressed() {
         val openMainActivity = Intent(this, MainActivity::class.java)
         openMainActivity.flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
         startActivityIfNeeded(openMainActivity, 0)
         finish()
+    }
+    */
+
+    override fun onBackPressed(): Unit {
+        AlertDialog.Builder(this)
+            .setIcon(android.R.drawable.ic_dialog_alert)
+            .setIconAttribute(android.R.attr.alertDialogIcon)
+            .setTitle("Chiusura dell'attività")
+            .setMessage("I tuoi progressi non saranno salvati,\nsei sicuro di voler uscire?")
+            .setPositiveButton(
+                "Yes"
+            ) { dialog, which ->
+                if(mediaPlayer.isPlaying) {
+                    mediaPlayer.stop()
+                }
+                finish() }
+            .setNegativeButton("No", null)
+            .show()
     }
 
     fun updateQuestionAndAnswer() {
@@ -98,12 +118,12 @@ class ClassicGameActivity : AppCompatActivity() {
             val colorDrawable = ColorDrawable(Color.TRANSPARENT)
             dialog.window!!.setBackgroundDrawable(colorDrawable)
         }
-        dialog.setContentView(R.layout.dialog)
+        dialog.setContentView(R.layout.response_dialog)
         dialog.setCancelable(false)
         dialog.show()
 
-        val buttonNext: Button = dialog.findViewById(R.id.dialogNextButton)
-        val responseText : TextView = dialog.findViewById(R.id.responseText)
+        val buttonNext: Button = dialog.findViewById(R.id.responseDialogNextButton)
+        val responseText : TextView = dialog.findViewById(R.id.responseDialogText)
 
         if(isResponseCorrect) {
             responseText.setText(R.string.dialog_correct_answer_text)
