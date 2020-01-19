@@ -87,3 +87,4 @@ lint/tmp/
 app/src/main/res/raw/*.mid
 app/libs/android-midi-lib
 app/app.iml
+gitfilter.sh
