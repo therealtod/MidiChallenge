@@ -7,7 +7,7 @@
             "file": "pathToFileMidi"
         },
         "suggestion": "Con noi la vita è possibile, ma è indubbiamente più complicata.",
-        "answer": "donne"
+        "answer": "Donne"
     },
     {
         "song" :{
@@ -17,7 +17,7 @@
             "file": "pathToFileMidi"
         },
         "suggestion": "Dicono che chi si accontenta gode, Non io! Anche se mi accontento di 4 accordi per scrivere una discografia.",
-        "answer": "certe notti"
+        "answer": "Certe notti"
     },
     {
         "song" :{
@@ -27,7 +27,7 @@
             "file": "pathToFileMidi"
         },
         "suggestion": "Sono sempre in giro, non ho dimora nè denaro, ma in compenso ho molta fede.",
-        "answer": "io vagabondo"
+        "answer": "Io vagabondo"
     },
     {
         "song" :{
@@ -37,7 +37,7 @@
             "file": "pathToFileMidi"
         },
         "suggestion": "Se chiedeste alla bimba col cappuccio, vi direbbe proprio così:",
-        "answer": "attenti al lupo"
+        "answer": "Attenti al lupo"
     },
     {
         "song" :{
@@ -47,7 +47,7 @@
             "file": "pathToFileMidi"
         },
         "suggestion": "La dea bendata mi ha baciato in giovane età, non mi serve altro.",
-        "answer": "ragazzo fortunato"
+        "answer": "Ragazzo fortunato"
     },
     {
         "song" :{
@@ -57,7 +57,7 @@
             "file": "pathToFileMidi"
         },
         "suggestion": "Fresca e luminosa come aria e luce di buon mattino.",
-        "answer": "albachiara"
+        "answer": "Albachiara"
     },
     {
         "song" :{
@@ -67,6 +67,26 @@
             "file": "pathToFileMidi"
         },
         "suggestion": "Ingordo come sono non mi fermo mai alla prima, potrei accontentarmi di quasi una dozzina.",
-        "answer": "dieci ragazze"
+        "answer": "Dieci ragazze"
+    },
+    {
+        "song" :{
+            "id" : 8,
+            "title" : "L'isola che non c'è",
+            "author": "Edoardo Bennato",
+            "file": "pathToFileMidi"
+        },
+        "suggestion": "Un posto in cui tutti vorrebbero stare, trovarlo non è difficile, basta solo imparare a volare.",
+        "answer": "L'isola che non c'è"
+    },
+    {
+        "song" :{
+            "id" : 9,
+            "title" : "Bocca di rosa",
+            "author": "Fabrizio De Andrè",
+            "file": "pathToFileMidi"
+        },
+        "suggestion": "Nella mia vita ho amato tanto senza amare nessuno, potrebbe sembrare un lavoro, ma la mia è una semplice passione.",
+        "answer": "Bocca di rosa"
     }
 ]}

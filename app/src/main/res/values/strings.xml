@@ -22,7 +22,9 @@
     <string name="title_activity_end_game">EndGameActivity</string>
 
     <!--content_main components-->
-    <string name="content_main_play_btn">Start</string>
+    <string name="content_main_play_button">Start</string>
+    <string name="content_main_login_button">Login</string>
+
 
     <!--activity_sign_up components-->
     <string name="sign_up_prompt_nickname">Nickname</string>
