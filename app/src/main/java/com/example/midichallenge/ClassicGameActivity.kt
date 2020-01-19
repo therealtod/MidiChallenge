@@ -84,18 +84,6 @@ class ClassicGameActivity : AppCompatActivity() {
         }
     }
 
-    /*
-    Todo: La nuova onBackPress non ha nessun intent ma la MainActivity non sembra essere
-          inizializzata di nuovo. Sembra tutto a posto ma per sicurezza: fare vedere a Toddiiiii
-
-    override fun onBackPressed() {
-        val openMainActivity = Intent(this, MainActivity::class.java)
-        openMainActivity.flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
-        startActivityIfNeeded(openMainActivity, 0)
-        finish()
-    }
-    */
-
     override fun onBackPressed(): Unit {
         AlertDialog.Builder(this)
             .setIcon(android.R.drawable.ic_dialog_alert)
