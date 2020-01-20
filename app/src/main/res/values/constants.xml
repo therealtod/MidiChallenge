@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <integer name="number_of_questions_classic_game_mode">5</integer>
+    <integer name="number_of_questions_classic_game_mode">3</integer>
     <integer name="max_number_notes_classic_game_mode">24</integer>
 
 </resources>
