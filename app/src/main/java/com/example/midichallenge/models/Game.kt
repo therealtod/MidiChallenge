@@ -7,9 +7,8 @@ import java.lang.Error
 
 class ClassicGame (val context: Context){
     val questions: List<ClassicGameQuestion>
-    private val questionManager = QuestionManager(context)
     init {
-        val q = questionManager.getQuestions(context.resources.getInteger(R.integer.number_of_questions_classic_game_mode))
+        val q = QuestionManager.getQuestions(context.resources.getInteger(R.integer.number_of_questions_classic_game_mode))
         questions = q.map{ClassicGameQuestion(
             0, it.suggestion, it.answer
         )}

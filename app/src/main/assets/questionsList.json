@@ -4,7 +4,7 @@
             "id" : 1,
             "title" : "Donne",
             "author": "Zucchero",
-            "file": "pathToFileMidi"
+            "filename": "pathToFileMidi"
         },
         "suggestion": "Con noi la vita è possibile, ma è indubbiamente più complicata.",
         "answer": "donne"
@@ -14,7 +14,7 @@
             "id" : 2,
             "title" : "Certe notti",
             "author": "Ligabue",
-            "file": "pathToFileMidi"
+            "filename": "pathToFileMidi"
         },
         "suggestion": "Dicono che chi si accontenta gode, Non io! Anche se mi accontento di 4 accordi per scrivere una discografia.",
         "answer": "certe notti"
@@ -24,7 +24,7 @@
             "id" : 3,
             "title" : "Io vagabondo",
             "author": "Nomadi",
-            "file": "pathToFileMidi"
+            "filename": "pathToFileMidi"
         },
         "suggestion": "Sono sempre in giro, non ho dimora nè denaro, ma in compenso ho molta fede.",
         "answer": "io vagabondo"
@@ -34,7 +34,7 @@
             "id" : 4,
             "title" : "Attenti al lupo",
             "author": "Lucio Dalla",
-            "file": "pathToFileMidi"
+            "filename": "pathToFileMidi"
         },
         "suggestion": "Se chiedeste alla bimba col cappuccio, vi direbbe proprio così:",
         "answer": "attenti al lupo"
@@ -44,7 +44,7 @@
             "id" : 5,
             "title" : "Ragazzo fortunato",
             "author": "Jovanotti",
-            "file": "pathToFileMidi"
+            "filename": "pathToFileMidi"
         },
         "suggestion": "La dea bendata mi ha baciato in giovane età, non mi serve altro.",
         "answer": "ragazzo fortunato"
@@ -54,7 +54,7 @@
             "id" : 6,
             "title" : "Albachiara",
             "author": "Vasco Rossi",
-            "file": "pathToFileMidi"
+            "filename": "pathToFileMidi"
         },
         "suggestion": "Fresca e luminosa come aria e luce di buon mattino.",
         "answer": "albachiara"
@@ -64,7 +64,7 @@
             "id" : 7,
             "title" : "Dieci ragazze",
             "author": "Lucio Battisti",
-            "file": "pathToFileMidi"
+            "filename": "pathToFileMidi"
         },
         "suggestion": "Ingordo come sono non mi fermo mai alla prima, potrei accontentarmi di quasi una dozzina.",
         "answer": "dieci ragazze"
