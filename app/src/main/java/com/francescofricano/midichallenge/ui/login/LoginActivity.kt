@@ -15,14 +15,18 @@ import android.view.inputmethod.EditorInfo
 import android.widget.*
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
+import com.francescofricano.midichallenge.Constants
 
 import com.francescofricano.midichallenge.R
+import com.francescofricano.midichallenge.models.MidichallengeUser
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var loginViewModel: LoginViewModel
-    val RC_SIGN_IN = 666
+    val RC_SIGN_IN = 0
+    val db = FirebaseFirestore.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,6 +55,13 @@ class LoginActivity : AppCompatActivity() {
             if (resultCode == Activity.RESULT_OK) {
                 // Successfully signed in
                 val user = FirebaseAuth.getInstance().currentUser
+                val data = hashMapOf(
+                    "user" to user,
+                    "friends" to listOf<MidichallengeUser>()
+                )
+
+
+
                 // ...
             } else {
                 // Sign in failed. If response is null the user canceled the

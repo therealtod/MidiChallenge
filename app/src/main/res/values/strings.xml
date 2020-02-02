@@ -75,5 +75,4 @@
     <!--friend list-->
     <string name="friend_list_column1">username</string>
     <string name="friend_list_column2">manda un messaggio</string>
-
 </resources>
