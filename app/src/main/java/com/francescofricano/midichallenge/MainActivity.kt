@@ -13,7 +13,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import android.view.Menu
 import android.widget.Button
+import android.widget.TextView
 import com.francescofricano.midichallenge.ui.login.LoginActivity
+import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,6 +31,7 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment)
         val startButton: Button = findViewById(R.id.button)
         val loginButton: Button = findViewById(R.id.button3)
+        val user= FirebaseAuth.getInstance().currentUser
 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -42,6 +45,15 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        //Set the user name in the drawer header if available
+        if (user != null) {
+            val navViewHeader = navView.getHeaderView(0)
+            val userNameTextView : TextView = navViewHeader.findViewById(R.id.navigation_drawer_username)
+            val emailTextView : TextView = navViewHeader.findViewById(R.id.navigation_drawer_email)
+            userNameTextView.text = user.displayName
+            emailTextView.text = user.email
+        }
 
         startButton.setOnClickListener { view ->
             val intent = Intent(this, ClassicGameActivity::class.java)

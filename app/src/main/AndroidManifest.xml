@@ -8,26 +8,32 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
-            android:name="com.francescofricano.midichallenge.ui.login.SignUpActivity"
+            android:name=".FriendsManagerActivity"
+            android:label="@string/title_activity_friends_manager"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".OneVsOneActivity" />
+        <activity
+            android:name=".ui.login.SignUpActivity"
             android:label="@string/title_activity_sign_up" />
         <activity
-            android:name="com.francescofricano.midichallenge.ui.login.LoginActivity"
+            android:name=".ui.login.LoginActivity"
             android:label="@string/title_activity_login" />
         <activity
-            android:name="com.francescofricano.midichallenge.EndGameActivity"
-            android:label="@string/title_activity_end_game"/>
+            android:name=".EndGameActivity"
+            android:label="@string/title_activity_end_game" />
         <activity
-            android:name="com.francescofricano.midichallenge.ClassicGameActivity"
+            android:name=".ClassicGameActivity"
             android:label="@string/title_activity_classic_game"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name="com.francescofricano.midichallenge.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

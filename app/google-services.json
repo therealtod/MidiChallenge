@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "492017082581",
+    "firebase_url": "https://midichallenge.firebaseio.com",
+    "project_id": "midichallenge",
+    "storage_bucket": "midichallenge.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:492017082581:android:acac730856d6e954f2025c",
+        "android_client_info": {
+          "package_name": "com.francescofricano.midichallenge"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "492017082581-2un4n3chck9p0kl8633816o9t0f30mn1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.francescofricano.midichallenge",
+            "certificate_hash": "35314fac0ff7b8e4e51cac493eae131ab622afe6"
+          }
+        },
+        {
+          "client_id": "492017082581-4n3q1vu9galkimn3uspv8s5381ca4hhi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDixl8BCP9fP4R4xc4rYA4fmsXBKYiajqQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "492017082581-4n3q1vu9galkimn3uspv8s5381ca4hhi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

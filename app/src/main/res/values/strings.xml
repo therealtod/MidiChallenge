@@ -24,6 +24,7 @@
     <!--content_main components-->
     <string name="content_main_play_button">Start</string>
     <string name="content_main_login_button">Login</string>
+    <string name="enter_friend_manager_button_text">AMICI</string>
 
 
     <!--activity_sign_up components-->
@@ -69,5 +70,10 @@
     <string name="dialog_correct_answer_text">RISPOSTA CORRETTA!</string>
     <string name="dialog_wrong_answer_text">RISPOSTA SBAGLIATA!</string>
     <string name="dialog_next_button">Continua</string>
+    <string name="title_activity_friends_manager">FriendsManagerActivity</string>
+
+    <!--friend list-->
+    <string name="friend_list_column1">username</string>
+    <string name="friend_list_column2">manda un messaggio</string>
 
 </resources>
