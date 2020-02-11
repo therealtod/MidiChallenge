@@ -1,35 +1,43 @@
-package com.francescofricano.midichallenge.ui.login
+package com.francescofricano.midichallenge.auth
+
 
 import android.app.Activity
+import android.app.AppComponentFactory
+import android.content.Context
 import android.content.Intent
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.annotation.StringRes
-import androidx.appcompat.app.AppCompatActivity
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.view.View
-import android.view.inputmethod.EditorInfo
-import android.widget.*
+import android.widget.Button
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
-import com.francescofricano.midichallenge.Constants
-
+import com.francescofricano.midichallenge.ClassicGameActivity
 import com.francescofricano.midichallenge.R
-import com.francescofricano.midichallenge.models.MidichallengeUser
+import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.auth.FirebaseUser
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity(){
 
-    private lateinit var loginViewModel: LoginViewModel
-    val RC_SIGN_IN = 0
-    val db = FirebaseFirestore.getInstance()
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        auth = FirebaseAuth.getInstance()
+        createSignInIntent()
+    }
+
+    public override fun onStart() {
+        super.onStart()
+        // Check if user is signed in (non-null) and update UI accordingly.
+        val currentUser = auth.currentUser
+    }
+
+    private fun createSignInIntent() {
+        // [START auth_fui_create_intent]
         // Choose authentication providers
         val providers = arrayListOf(
             AuthUI.IdpConfig.EmailBuilder().build(),
@@ -41,9 +49,10 @@ class LoginActivity : AppCompatActivity() {
             AuthUI.getInstance()
                 .createSignInIntentBuilder()
                 .setAvailableProviders(providers)
+                .setIsSmartLockEnabled(false)
                 .build(),
             RC_SIGN_IN)
-
+        // [END auth_fui_create_intent]
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -54,14 +63,7 @@ class LoginActivity : AppCompatActivity() {
 
             if (resultCode == Activity.RESULT_OK) {
                 // Successfully signed in
-                val user = FirebaseAuth.getInstance().currentUser
-                val data = hashMapOf(
-                    "user" to user,
-                    "friends" to listOf<MidichallengeUser>()
-                )
-
-
-
+                finish()
                 // ...
             } else {
                 // Sign in failed. If response is null the user canceled the
@@ -70,6 +72,17 @@ class LoginActivity : AppCompatActivity() {
                 // ...
             }
         }
+    }
+
+    private fun signOut() {
+        auth.signOut()
+    }
+
+
+    companion object {
+
+        private const val RC_SIGN_IN = 123
+
     }
 
 }

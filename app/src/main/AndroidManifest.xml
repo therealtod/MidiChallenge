@@ -10,15 +10,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings"></activity>
+        <activity
             android:name=".FriendsManagerActivity"
             android:label="@string/title_activity_friends_manager"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".OneVsOneActivity" />
         <activity
             android:name=".ui.login.SignUpActivity"
             android:label="@string/title_activity_sign_up" />
         <activity
-            android:name=".ui.login.LoginActivity"
+            android:name=".auth.LoginActivity"
             android:label="@string/title_activity_login" />
         <activity
             android:name=".EndGameActivity"

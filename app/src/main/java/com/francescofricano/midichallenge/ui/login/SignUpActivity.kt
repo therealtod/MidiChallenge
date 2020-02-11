@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
 import com.francescofricano.midichallenge.R
+import com.francescofricano.midichallenge.auth.LoginActivity
 
 class SignUpActivity : AppCompatActivity() {
 
