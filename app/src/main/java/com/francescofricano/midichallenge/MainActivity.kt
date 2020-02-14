@@ -1,6 +1,5 @@
 package com.francescofricano.midichallenge
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -19,9 +18,11 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import com.francescofricano.midichallenge.auth.LoginActivity
+import com.francescofricano.midichallenge.ui.friends.Friend
+import com.francescofricano.midichallenge.ui.friends.FriendsFragment
 import com.google.firebase.auth.FirebaseAuth
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), FriendsFragment.OnListFragmentInteractionListener {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
 
@@ -43,7 +44,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow,
+                R.id.nav_home, R.id.nav_gallery, R.id.nav_friends,
                 R.id.nav_tools, R.id.nav_share, R.id.nav_send
             ), drawerLayout
         )
@@ -122,6 +123,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onListFragmentInteraction(friend: Friend) {
+        Log.i("AAAAA", friend.name)
     }
 
 }
