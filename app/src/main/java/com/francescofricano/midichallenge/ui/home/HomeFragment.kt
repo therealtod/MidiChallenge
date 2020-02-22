@@ -77,7 +77,6 @@ class HomeFragment : Fragment() {
         if (auth.currentUser != null) {
             db.collection(gamesCollectionName)
                 .whereArrayContains(playersListFieldName, auth.currentUser!!.uid)
-                .whereEqualTo("status", "waiting")
                 .limit(1)
                 .addSnapshotListener { snapshot, e ->
                     if (e != null) {

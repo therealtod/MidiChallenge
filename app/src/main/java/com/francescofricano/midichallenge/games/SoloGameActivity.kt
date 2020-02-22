@@ -8,6 +8,7 @@ import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
 import android.media.MediaPlayer
 import android.os.Bundle
@@ -40,6 +41,10 @@ open class SoloGameActivity : AppCompatActivity() {
             this.supportActionBar!!.hide()
         } catch (e: NullPointerException) {}
 
+        val title = findViewById<TextView>(R.id.imageView2)
+        val tf = Typeface.createFromAsset(assets, "fonts/julius_sans_one_regular.ttf")
+        title.typeface = tf
+        window.setBackgroundDrawableResource(R.drawable.sfondo_7x15_300dpi)
         numberPicker= findViewById(R.id.horizontalNumberPicker)
         playPauseButton = findViewById(R.id.button7)
         answerBox = findViewById(R.id.editText)

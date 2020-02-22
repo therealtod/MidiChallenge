@@ -29,7 +29,7 @@ class MultiplayerGameActivity: SoloGameActivity() {
     }
 
     override fun getGame(gameId: String) {
-        game = GameRepository.setContext(this).getMultiplayerGame(gameId) as MultiplayerGame
+        game = GameRepository.setContext(this).getMultiplayerGame(gameId)
     }
 
     private fun disableControls() {
