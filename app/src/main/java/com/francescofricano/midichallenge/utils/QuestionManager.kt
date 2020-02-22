@@ -7,15 +7,19 @@ import com.google.gson.Gson
 import java.io.BufferedReader
 import java.io.InputStreamReader
 
-class QuestionManager(val context: Context) {
+object QuestionManager {
     private val gson: Gson = Gson()
-    private val questionsList: QuestionsList
-    init{
-        val reader : BufferedReader = BufferedReader(InputStreamReader(context.assets.open("questionsList.json")))
-        questionsList = gson.fromJson(reader, QuestionsList::class.java)
+    private lateinit var context: Context
+
+
+    fun setContext(context: Context): QuestionManager {
+        this.context = context
+        return this
     }
 
-    fun getQuestions (number: Int): MutableList<Question> {
+    fun getNQuestions (number: Int): MutableList<Question> {
+        val reader : BufferedReader = BufferedReader(InputStreamReader(context.assets.open("questionsList.json")))
+        val questionsList = gson.fromJson(reader, QuestionsList::class.java)
         val questions = questionsList.questions
         val l = ArrayList(questions)
         l.shuffle()

@@ -9,17 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <service
+            android:name=".games.GameService"
+            android:enabled="true"
+            android:exported="true"></service>
+
         <activity
             android:name=".SettingsActivity"
-            android:label="@string/title_activity_settings"></activity>
-        <activity
-            android:name=".FriendsManagerActivity"
-            android:label="@string/title_activity_friends_manager"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".OneVsOneActivity" />
-        <activity
-            android:name=".ui.login.SignUpActivity"
-            android:label="@string/title_activity_sign_up" />
+            android:label="@string/title_activity_settings" />
         <activity
             android:name=".auth.LoginActivity"
             android:label="@string/title_activity_login" />
@@ -29,6 +26,13 @@
         <activity
             android:name=".ClassicGameActivity"
             android:label="@string/title_activity_classic_game"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".games.MultiplayerGameActivity"
+            android:label="@string/title_activity_classic_game"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".games.SoloGameActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".MainActivity"

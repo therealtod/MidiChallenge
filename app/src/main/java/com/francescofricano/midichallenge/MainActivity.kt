@@ -34,7 +34,6 @@ class MainActivity : AppCompatActivity(), FriendsFragment.OnListFragmentInteract
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host_fragment)
-        val startButton: Button = findViewById(R.id.button)
         val navViewHeader = navView.getHeaderView(0)
         val loginButton: Button = navViewHeader.findViewById(R.id.login_button)
 
@@ -51,11 +50,6 @@ class MainActivity : AppCompatActivity(), FriendsFragment.OnListFragmentInteract
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        startButton.setOnClickListener { view ->
-            val intent = Intent(this, ClassicGameActivity::class.java)
-            intent.putExtra("CURRENT_QUESTION", -1)
-            startActivity(intent)
-        }
 
         loginButton.setOnClickListener { view ->
             val intent = Intent(this, LoginActivity::class.java)
@@ -126,7 +120,7 @@ class MainActivity : AppCompatActivity(), FriendsFragment.OnListFragmentInteract
     }
 
     override fun onListFragmentInteraction(friend: Friend) {
-        Log.i("AAAAA", friend.name)
+        Log.i(this.javaClass.name, friend.name)
     }
 
 }

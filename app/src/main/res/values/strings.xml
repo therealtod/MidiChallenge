@@ -101,4 +101,9 @@
     <string name="logout_button_key">logout</string>
     <string name="logout_button_text">Logout</string>
     <string name="logout_button_summary">Sign out from your account</string>
+
+
+    <!-- Home fragment -->
+    <string name="random_match_button_text">Sfida un utente casuale</string>
+    <string name="solo_game_button_text">Inizia una partita in solitario</string>
 </resources>

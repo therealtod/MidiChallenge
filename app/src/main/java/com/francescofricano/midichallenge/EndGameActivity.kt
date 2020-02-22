@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import com.francescofricano.midichallenge.games.SoloGameActivity
 
 class EndGameActivity : AppCompatActivity() {
 
@@ -25,7 +26,7 @@ class EndGameActivity : AppCompatActivity() {
         scoreTextView.text = finalScore.toString()
 
         playAgainButton.setOnClickListener { view ->
-            val intent = Intent(this, ClassicGameActivity::class.java)
+            val intent = Intent(this, SoloGameActivity::class.java)
             intent.putExtra("CURRENT_QUESTION", -1)
             startActivity(intent)
             finish()

@@ -1,35 +1,20 @@
 package com.francescofricano.midichallenge.models
 
 import android.content.Context
+import com.firebase.ui.auth.data.model.User
 import com.francescofricano.midichallenge.R
 import com.francescofricano.midichallenge.utils.QuestionManager
+import com.google.firebase.auth.FirebaseAuth
 import java.lang.Error
 
-class ClassicGame (val context: Context){
-    val questions: List<ClassicGameQuestion>
-    private val questionManager = QuestionManager(context)
-    init {
-        val q = questionManager.getQuestions(context.resources.getInteger(R.integer.number_of_questions_classic_game_mode))
-        questions = q.map{ClassicGameQuestion(
-            0, it.suggestion, it.answer
-        )}
-    }
 
-    fun getScore() : Int{
-        return questions.fold(0){sum, x -> sum + x.points}
-    }
 
-    fun answerQuestion(notesUsed: Int, questionNumber: Int, isPlayed : Boolean) {
-        val max = context.resources.getInteger(R.integer.max_number_notes_classic_game_mode) + 1
-        if(isPlayed) {
-            if (notesUsed in 0..max) {
-                questions[questionNumber].points = max - notesUsed
-            } else {
-                throw Error("Value passed not in correct range")
-            }
-        } else {
-            questions[questionNumber].points = max
-        }
+data class RandomMatchGame (val player1: MidichallengeUser,
+                            val player2: MidichallengeUser?,
+                            val status: RandomMatchGameStatus) {
+    companion object {
+        abstract class RandomMatchGameStatus
+        class Open : RandomMatchGameStatus()
+        class Closed: RandomMatchGameStatus()
     }
-
 }

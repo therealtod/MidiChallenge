@@ -1,4 +1,8 @@
-package com.francescofricano.midichallenge
+package com.francescofricano.midichallenge.games
+
+import com.francescofricano.midichallenge.EndGameActivity
+import com.francescofricano.midichallenge.R
+
 
 import android.app.AlertDialog
 import android.app.Dialog
@@ -14,32 +18,34 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.francescofricano.midichallenge.models.ClassicGame
+import com.francescofricano.midichallenge.games.models.SoloGame
 import com.francescofricano.midichallenge.view_components.HorizontalNumberPicker
 import kotlinx.android.synthetic.main.horizontal_number_picker.view.*
 
 
-class ClassicGameActivity : AppCompatActivity() {
+open class SoloGameActivity : AppCompatActivity() {
 
     private lateinit var mediaPlayer: MediaPlayer
-    private lateinit var game: ClassicGame
-    private var currentQuestionNumber : Int = 0
-    private var expectedAnswer = ""
+    lateinit var game: SoloGame
     private var isPlayed = false
+    lateinit var numberPicker: HorizontalNumberPicker
+    lateinit var playPauseButton : Button
+    lateinit var answerBox: EditText
+    lateinit var confirmButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_classic_game)
-
+        setLayout()
         try {
             this.supportActionBar!!.hide()
         } catch (e: NullPointerException) {}
 
-        val numberPicker: HorizontalNumberPicker = findViewById(R.id.horizontalNumberPicker)
+        numberPicker= findViewById(R.id.horizontalNumberPicker)
+        playPauseButton = findViewById(R.id.button7)
+        answerBox = findViewById(R.id.editText)
+        confirmButton = findViewById(R.id.button2)
+
         var notesUsed = 0
-        val playPauseButton : Button = findViewById(R.id.button7)
-        val answerBox: EditText = findViewById(R.id.editText)
-        val confirmButton: Button = findViewById(R.id.button2)
 
         playPauseButton.isEnabled = false
         numberPicker.max = resources.getInteger(R.integer.max_number_notes_classic_game_mode)
@@ -51,36 +57,39 @@ class ClassicGameActivity : AppCompatActivity() {
             override fun beforeTextChanged(cs: CharSequence, arg1: Int, arg2: Int, arg3: Int) {}
             override fun afterTextChanged(arg0: Editable) {}
         })
-
-        currentQuestionNumber = getIntent().getIntExtra("CURRENT_QUESTION", 0)
-        game = ClassicGame(this)
-
-        updateQuestionAndAnswer()
+        // We retrieve the gameId assigned to this execution of the activity
+        val gameId = intent.getStringExtra("GAME_ID")
+            ?: throw Exception ("Game Id not found in intent extra")
+        //And retrieve the game from the GameRepository using this gameId
+        getGame(gameId)
         updateView()
 
         mediaPlayer = MediaPlayer.create(this, R.raw.donne_test)
         mediaPlayer.setOnCompletionListener{
-            playPauseButton.setText("Play")
+            playPauseButton.text = "Play"
         }
 
         playPauseButton.setOnClickListener{ view ->
-                isPlayed = true
-                numberPicker.freezeButtons()
-                notesUsed = numberPicker.value
-                if (mediaPlayer.isPlaying) {
-                    mediaPlayer.pause()
-                    playPauseButton.setText("Play")
-                } else {
-                    mediaPlayer.start()
-                    playPauseButton.setText("Pause")
-                }
+            isPlayed = true
+            numberPicker.freezeButtons()
+            notesUsed = numberPicker.value
+            if (mediaPlayer.isPlaying) {
+                mediaPlayer.pause()
+                playPauseButton.text = "Play"
+            } else {
+                mediaPlayer.start()
+                playPauseButton.text = "Pause"
+            }
         }
 
-        confirmButton.setOnClickListener{ view ->
+        confirmButton.setOnClickListener{
             if(mediaPlayer.isPlaying) {
                 mediaPlayer.stop()
             }
-            responseDialog(answerBox.getText().toString() == expectedAnswer, notesUsed, isPlayed)
+            // Give the answer and get the result
+            val result = game.answerCurrentQuestion(answerBox.text.toString(), notesUsed)
+            game.goToNextQuestion()
+            displayResponseDialog(result)
         }
     }
 
@@ -93,28 +102,24 @@ class ClassicGameActivity : AppCompatActivity() {
             .setPositiveButton("Yes") { dialog, which ->
                 if(mediaPlayer.isPlaying) {
                     mediaPlayer.stop()
-                    }
+                }
                 finish() }
             .setNegativeButton("No", null)
             .show()
     }
 
-    fun updateQuestionAndAnswer() {
-        currentQuestionNumber++
-        val currentQuestion = game.questions.get(currentQuestionNumber)
-        val suggestionBox: TextView = findViewById(R.id.textView2)
-        expectedAnswer = currentQuestion.answer
-        suggestionBox.setText(currentQuestion.suggestion)
-    }
 
-    fun updateView() {
+
+    open fun updateView() {
         val currentPoints: TextView = findViewById(R.id.textViewPlayerScore)
         val counterQuestionBox: TextView = findViewById(R.id.textViewQuestionCounter)
         val numberPicker: HorizontalNumberPicker = findViewById(R.id.horizontalNumberPicker)
         val playPauseButton : Button = findViewById(R.id.button7)
         val answerBox: EditText = findViewById(R.id.editText)
-        currentPoints.setText(game.getScore().toString())
-        counterQuestionBox.setText((currentQuestionNumber + 1).toString() + " / " + resources.getInteger(R.integer.number_of_questions_classic_game_mode).toString())
+        val suggestionBox: TextView = findViewById(R.id.textView2)
+        suggestionBox.text = game.getCurrentQuestion().suggestion
+        currentPoints.text = game.score.toString()
+        counterQuestionBox.text =(game.currentQuestionNumber).toString() + " / " +  game.numberOfQuestions
         isPlayed = false
         numberPicker.value = 0
         numberPicker.unfreezeButtons()
@@ -122,8 +127,8 @@ class ClassicGameActivity : AppCompatActivity() {
         answerBox.setText("")
     }
 
-    fun responseDialog(isResponseCorrect : Boolean, notesUsed: Int, isPlayed : Boolean) {
-        val dialog = Dialog(this@ClassicGameActivity)
+    private fun displayResponseDialog(isResponseCorrect : Boolean) {
+        val dialog = Dialog(this@SoloGameActivity)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         if (dialog.window != null) {
             val colorDrawable = ColorDrawable(Color.TRANSPARENT)
@@ -139,26 +144,30 @@ class ClassicGameActivity : AppCompatActivity() {
         if(isResponseCorrect) {
             responseText.setText(R.string.dialog_correct_answer_text)
             responseText.setTextColor(Color.GREEN)
-            game.answerQuestion(notesUsed, currentQuestionNumber, isPlayed)
         }
         else {
             responseText.setText(R.string.dialog_wrong_answer_text)
             responseText.setTextColor(Color.RED)
         }
 
-        buttonNext.setOnClickListener { view ->
+        buttonNext.setOnClickListener {
             dialog.dismiss()
-            if(currentQuestionNumber < this.resources.getInteger(R.integer.number_of_questions_classic_game_mode) - 1) {
-                updateQuestionAndAnswer()
+            if(!game.isOver()) {
                 updateView()
             }
             else {
                 val intent = Intent(this, EndGameActivity::class.java)
-                intent.putExtra("FINAL_SCORE", game.getScore())
+                intent.putExtra("FINAL_SCORE", game.score)
                 startActivity(intent)
                 finish()
             }
         }
     }
+    open fun getGame(gameId: String) {
+        game = GameRepository.setContext(this).getSoloGame(gameId)
+    }
 
+    open fun setLayout() {
+        setContentView(R.layout.activity_classic_game)
+    }
 }
