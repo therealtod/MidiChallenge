@@ -1,6 +1,7 @@
 package com.francescofricano.midichallenge.ui.home
 
 import android.content.Intent
+import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,6 +16,7 @@ import com.francescofricano.midichallenge.R
 import com.francescofricano.midichallenge.games.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ListenerRegistration
 
 class HomeFragment : Fragment() {
 
@@ -33,9 +35,9 @@ class HomeFragment : Fragment() {
         homeViewModel =
             ViewModelProvider(this).get(HomeViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_home, container, false)
-        val textView: TextView = root.findViewById(R.id.text_home)
+        //val textView: TextView = root.findViewById(R.id.text_home)
         homeViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
+            //textView.text = it
             updateView()
             val randomChallengeButton = view!!.findViewById<Button>(R.id.random_match_button)
             randomChallengeButton.setOnClickListener {
@@ -75,8 +77,10 @@ class HomeFragment : Fragment() {
 
     private fun waitForGame() {
         if (auth.currentUser != null) {
-            db.collection(gamesCollectionName)
+            var unsuscribe: ListenerRegistration
+            unsuscribe = db.collection(gamesCollectionName)
                 .whereArrayContains(playersListFieldName, auth.currentUser!!.uid)
+                .whereEqualTo("status", "waiting")
                 .limit(1)
                 .addSnapshotListener { snapshot, e ->
                     if (e != null) {

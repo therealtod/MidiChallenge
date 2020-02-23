@@ -29,8 +29,10 @@ class MainActivity : AppCompatActivity(), FriendsFragment.OnListFragmentInteract
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        window.setBackgroundDrawableResource(R.drawable.sfondo_7x15_300dpi)
 
         val toolbar: Toolbar = findViewById(R.id.toolbar)
+        //toolbar.logo = getDrawable(R.drawable.logo_si_300dpi)
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host_fragment)
@@ -43,7 +45,7 @@ class MainActivity : AppCompatActivity(), FriendsFragment.OnListFragmentInteract
         setSupportActionBar(toolbar)
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_friends,
+                R.id.nav_home, R.id.nav_friends, R.id.nav_gallery,
                 R.id.nav_tools, R.id.nav_share, R.id.nav_send
             ), drawerLayout
         )

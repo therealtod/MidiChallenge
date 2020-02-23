@@ -3,6 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
+    <include layout="@layout/activity_classic_game" />
+
     <TextView
         android:id="@+id/timerTextView"
         android:layout_width="wrap_content"
@@ -12,10 +14,60 @@
         android:layout_below="@id/toolbar"
         android:layout_centerHorizontal="true"
         android:elevation="1dp"
-        android:text="Aspettando un giocatore..." />
+        android:text="" />
 
-    <include layout="@layout/activity_classic_game" />
+    <TextView
+        android:id="@+id/playerOnTurnTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="68dp"
+        android:layout_marginStart="14dp"
+        android:textColor="#379B40"
+        android:textStyle="bold"
+        android:text="@string/game_player_on_turn_text" />
 
+
+    <com.francescofricano.midichallenge.view_components.TimeCounter
+        android:id="@+id/timeCounter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="63dp"/>
+
+
+    <com.francescofricano.midichallenge.view_components.PlayerScore
+        android:id="@+id/PlayerScoreTwo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleX="-1"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="12dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"/>
+
+    <Button
+        android:id="@+id/buttonBid"
+        android:layout_width="90dp"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/bottone_medio_verde_chiaroscuro"
+        android:text="@string/game_bid_button" />
+
+    <Button
+        android:id="@+id/buttonPass"
+        android:layout_width="90dp"
+        android:layout_height="50dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/bottone_medio_ruggine"
+        android:text="@string/game_pass_button" />
 
 
 </RelativeLayout>
