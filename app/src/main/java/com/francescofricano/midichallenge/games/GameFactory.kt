@@ -1,6 +1,7 @@
 package com.francescofricano.midichallenge.games
 
 import android.content.Context
+import android.util.Log
 import com.francescofricano.midichallenge.R
 import com.francescofricano.midichallenge.games.models.SoloGame
 import com.francescofricano.midichallenge.games.models.ClassicGameQuestion
@@ -11,6 +12,7 @@ import com.google.firebase.firestore.DocumentSnapshot
 
 object GameFactory {
     private lateinit var context: Context
+    private val LOG_TAG = this.javaClass.name
 
     fun setContext(context: Context) : GameFactory {
         GameFactory.context = context
@@ -33,6 +35,7 @@ object GameFactory {
         )
     }
     fun makeMultiplayerGameFromFirebaseDocument(document: DocumentSnapshot) : MultiplayerGame{
+        Log.i(LOG_TAG, "Creating a game")
         val players = document.get("players") as List<*>
         val p = players.map {
             it as String

@@ -75,38 +75,58 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun waitForGame() {
+    private fun waitForGame()  {
         if (auth.currentUser != null) {
-            var unsuscribe: ListenerRegistration
-            unsuscribe = db.collection(gamesCollectionName)
+            /* Query all the games where my id is included in "players"
+             * and the status is "waiting". Get only one.
+             */
+            Log.i(LOG_TAG, "Before building the query")
+            db.collection(gamesCollectionName)
                 .whereArrayContains(playersListFieldName, auth.currentUser!!.uid)
                 .whereEqualTo("status", "waiting")
                 .limit(1)
-                .addSnapshotListener { snapshot, e ->
-                    if (e != null) {
-                        Log.w(LOG_TAG, "Listen failed.", e)
-                        return@addSnapshotListener
-                    }
-
+                .addSnapshotListener()
+                // When the query is executed successfully
+                    { snapshot, err ->
+                    Log.i(LOG_TAG, "I've found a new game waiting ")
+                    // If the query found something
                     if (snapshot != null && !snapshot.isEmpty) {
-                        val gameReference = snapshot.documents[0].reference
-                        gameReference.update(mapOf(
+                        Log.i(LOG_TAG, "We have found the following documents:")
+                        val gameDocument = snapshot.documents[0]
+                        Log.i(LOG_TAG, "${gameDocument.data}")
+                        val gameRef = gameDocument.reference
+                        val gameId = GameRepository
+                            .setContext(activity!!)
+                            .newMultiplayerGame(gameDocument)
+                        val intent = Intent(activity, MultiplayerGameActivity::class.java)
+                        intent.putExtra("GAME_ID", gameId)
+                        startActivity(intent)
+                        gameRef.update(mapOf(
                             "status" to "ongoing"
                         ))
-                        gameReference.get().addOnSuccessListener {document ->
-                            val gameId = GameRepository
-                                .setContext(context!!).newMultiplayerGame(document)
-                            val game = GameRepository.getMultiplayerGame(gameId)
-                            game.addOnChangeListener {
+                                // If the update was successful
+                            .addOnCompleteListener {
+                                // Listen to changes to the game document
+                                gameRef.addSnapshotListener {snapshot, err ->
+                                    if (err != null) {
+                                        Log.w(LOG_TAG, "Can't listen to this document")
+                                        return@addSnapshotListener
+                                    }
+                                    if (snapshot != null && snapshot.exists()) {
+                                        // Aggiornare i dati locali
+                                        Log.d(LOG_TAG, "Current data: ${snapshot.data}")
+
+                                    } else {
+                                        Log.d(LOG_TAG, "An error occurred: Maybe the document doesn't exist anymore?")
+                                    }
+
+
+                                }
                             }
-                            val intent = Intent(activity, MultiplayerGameActivity::class.java)
-                            intent.putExtra("GAME_ID", gameId)
-                            startActivity(intent)
-                        }
 
-
-                    } else {
-                        Log.d(LOG_TAG, "Current data: null")
+                    }
+                    else {
+                        Log.d(LOG_TAG, "No games waiting for current user")
                     }
                 }
         }

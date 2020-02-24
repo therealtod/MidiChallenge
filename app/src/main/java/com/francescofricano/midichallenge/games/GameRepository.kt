@@ -1,6 +1,7 @@
 package com.francescofricano.midichallenge.games
 
 import android.content.Context
+import android.util.Log
 import com.francescofricano.midichallenge.games.models.Game
 import com.francescofricano.midichallenge.games.models.MultiplayerGame
 import com.francescofricano.midichallenge.games.models.SoloGame
@@ -10,6 +11,7 @@ import java.util.*
 object GameRepository {
     private val games: MutableMap<String, Game> = mutableMapOf()
     private lateinit var context: Context
+    private val LOG_TAG = this.javaClass.name
 
     fun getGame(id: String) : Game {
         return games[id]
@@ -49,9 +51,11 @@ object GameRepository {
     }
 
     fun newMultiplayerGame(doc: DocumentSnapshot): String {
+        Log.i(LOG_TAG, "Asking Gamefactory to create a game")
         val game = GameFactory
             .setContext(context).makeMultiplayerGameFromFirebaseDocument(doc)
         val id = UUID.randomUUID().toString()
+        Log.i(LOG_TAG, "Assigned this id: ${id} to the new game")
         games[id] = game
         return id
     }

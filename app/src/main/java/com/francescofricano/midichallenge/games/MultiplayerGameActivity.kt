@@ -2,6 +2,7 @@ package com.francescofricano.midichallenge.games
 
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.util.Log
 import android.widget.TextView
 import com.francescofricano.midichallenge.R
 import com.francescofricano.midichallenge.games.models.MultiplayerGame
@@ -13,6 +14,7 @@ import java.util.*
 class MultiplayerGameActivity: SoloGameActivity() {
     private val auth = FirebaseAuth.getInstance()
     lateinit var multiplayerGame: MultiplayerGame
+    private val LOG_TAG = this.javaClass.name
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,7 +23,7 @@ class MultiplayerGameActivity: SoloGameActivity() {
         numberPicker.value = numberPicker.max
         playPauseButton.text =  "punta"
         if (game is MultiplayerGame) {
-            multiplayerGame = game as MultiplayerGame
+
             updateView()
             multiplayerGame.addOnChangeListener { updateView() }
         }
@@ -29,7 +31,9 @@ class MultiplayerGameActivity: SoloGameActivity() {
     }
 
     override fun getGame(gameId: String) {
+        Log.i(LOG_TAG, "Trying to retrieve: ${gameId}")
         game = GameRepository.setContext(this).getMultiplayerGame(gameId)
+        multiplayerGame = game as MultiplayerGame
     }
 
     private fun disableControls() {
