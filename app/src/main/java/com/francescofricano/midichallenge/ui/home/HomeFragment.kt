@@ -1,14 +1,12 @@
 package com.francescofricano.midichallenge.ui.home
 
 import android.content.Intent
-import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -76,6 +74,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun waitForGame()  {
+        println("HELLOOOOOOOOOOO")
         if (auth.currentUser != null) {
             /* Query all the games where my id is included in "players"
              * and the status is "waiting". Get only one.
@@ -107,22 +106,7 @@ class HomeFragment : Fragment() {
                                 // If the update was successful
                             .addOnCompleteListener {
                                 // Listen to changes to the game document
-                                gameRef.addSnapshotListener {snapshot, err ->
-                                    if (err != null) {
-                                        Log.w(LOG_TAG, "Can't listen to this document")
-                                        return@addSnapshotListener
-                                    }
-                                    if (snapshot != null && snapshot.exists()) {
-                                        Log.d(LOG_TAG, "Current data: ${snapshot.data}")
-                                        GameRepository.getMultiplayerGame(gameId)
-                                            .updateFromDatabaseData(snapshot.data)
 
-                                    } else {
-                                        Log.d(LOG_TAG, "An error occurred: Maybe the document doesn't exist anymore?")
-                                    }
-
-
-                                }
                             }
 
                     }

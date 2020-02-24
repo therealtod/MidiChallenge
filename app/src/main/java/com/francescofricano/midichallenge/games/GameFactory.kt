@@ -1,12 +1,10 @@
 package com.francescofricano.midichallenge.games
 
 import android.content.Context
-import android.util.Log
 import com.francescofricano.midichallenge.R
 import com.francescofricano.midichallenge.games.models.SoloGame
 import com.francescofricano.midichallenge.games.models.ClassicGameQuestion
 import com.francescofricano.midichallenge.games.models.MultiplayerGame
-import com.francescofricano.midichallenge.models.Song
 import com.francescofricano.midichallenge.utils.QuestionManager
 import com.google.firebase.firestore.DocumentSnapshot
 
@@ -34,6 +32,7 @@ object GameFactory {
             context
         )
     }
+    /*
     fun makeMultiplayerGameFromFirebaseDocument(document: DocumentSnapshot) : MultiplayerGame{
         Log.i(LOG_TAG, "Creating a game")
         val players = document.get("players") as List<*>
@@ -58,5 +57,24 @@ object GameFactory {
 
 
         return MultiplayerGame(gameQuestions, context, p, playerOnTurnIndex.toString().toInt(), document.reference)
+    }
+
+     */
+
+    fun makeMultiplayerGameFromFirebaseDocument(document: DocumentSnapshot) : MultiplayerGame{
+        val gameFromDatabase = document.toObject(com.francescofricano.midichallenge.models.database.MultiplayerGame::class.java)
+        val questions = gameFromDatabase!!.questions!!.map{
+            ClassicGameQuestion(
+                it.song!!.id,
+                it.suggestion,
+                it.answer,
+                0
+            )
+        }
+        return MultiplayerGame(
+            questions.toMutableList(),
+            context, gameFromDatabase.players!!,
+            gameFromDatabase.playerOnTurnIndex!!,
+            document.reference)
     }
 }

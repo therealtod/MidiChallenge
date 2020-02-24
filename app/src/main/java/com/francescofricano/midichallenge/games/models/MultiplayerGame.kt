@@ -3,6 +3,8 @@ package com.francescofricano.midichallenge.games.models
 import android.content.Context
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.IgnoreExtraProperties
+
 
 class MultiplayerGame (questions: MutableList<ClassicGameQuestion>,
                        context: Context,
@@ -68,10 +70,13 @@ class MultiplayerGame (questions: MutableList<ClassicGameQuestion>,
        this.changeListeners.add(onChangeListener)
     }
 
-    fun updateFromDatabaseData(dataMap: MutableMap<String, Any>) {
+    fun updateFromDatabaseData(dataMap: MutableMap<String, Any>?) {
     }
 }
 
 
+/*
+class MultiplayerGame(private val documentReference: DocumentReference)
+*/
 
 class GameIsClosedException (message: String = "The round is already closed") : Exception(message)
