@@ -22,7 +22,7 @@
         android:layout_height="30sp"
         android:layout_gravity="end|center_vertical"
         android:layout_marginRight="18dp"
-        android:tint="@color/yellow"
+        android:tint="#FD610D"
         app:srcCompat="@android:drawable/ic_lock_idle_alarm" />
 
 </LinearLayout>
