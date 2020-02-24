@@ -1,15 +1,16 @@
 package com.francescofricano.midichallenge.games.models
 
 import android.content.Context
+import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 
 class MultiplayerGame (questions: MutableList<ClassicGameQuestion>,
                        context: Context,
                        p: List<String>,
-                       private var playerOnTurnIndex: Int) : SoloGame(questions, context) {
+                       private var playerOnTurnIndex: Int,
+                       private val documentReference: DocumentReference) : SoloGame(questions, context) {
 
     private val players: List<Player> = p.map { Player(it) }
-    private val db = FirebaseFirestore.getInstance()
     var currentBid = 10
     private val changeListeners=  mutableListOf<() -> Unit>()
     private val rounds: List<Round>
@@ -32,6 +33,11 @@ class MultiplayerGame (questions: MutableList<ClassicGameQuestion>,
 
     fun playerOnTurnPasses() {
         switchToNextPlayer()
+        documentReference.update(
+            mapOf(
+                "playerOTurnIndex" to playerOnTurnIndex
+            )
+        )
     }
 
     fun playerOnTurnBids(notes: Int) {
@@ -45,7 +51,11 @@ class MultiplayerGame (questions: MutableList<ClassicGameQuestion>,
         if (notes < currentBid) {
             currentBid= notes
             switchToNextPlayer()
-            db.collection("games")
+            documentReference.update(
+                mapOf(
+                    "currentNotes" to notes
+                )
+            )
             return
         }
     }
@@ -56,6 +66,9 @@ class MultiplayerGame (questions: MutableList<ClassicGameQuestion>,
 
     fun addOnChangeListener(onChangeListener: () -> Unit) {
        this.changeListeners.add(onChangeListener)
+    }
+
+    fun updateFromDatabaseData(dataMap: MutableMap<String, Any>) {
     }
 }
 

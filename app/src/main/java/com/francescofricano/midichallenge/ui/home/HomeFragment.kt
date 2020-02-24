@@ -113,8 +113,9 @@ class HomeFragment : Fragment() {
                                         return@addSnapshotListener
                                     }
                                     if (snapshot != null && snapshot.exists()) {
-                                        // Aggiornare i dati locali
                                         Log.d(LOG_TAG, "Current data: ${snapshot.data}")
+                                        GameRepository.getMultiplayerGame(gameId)
+                                            .updateFromDatabaseData(snapshot.data)
 
                                     } else {
                                         Log.d(LOG_TAG, "An error occurred: Maybe the document doesn't exist anymore?")

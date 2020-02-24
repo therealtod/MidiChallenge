@@ -57,6 +57,6 @@ object GameFactory {
         }
 
 
-        return MultiplayerGame(gameQuestions, context, p, playerOnTurnIndex.toString().toInt())
+        return MultiplayerGame(gameQuestions, context, p, playerOnTurnIndex.toString().toInt(), document.reference)
     }
 }
