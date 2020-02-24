@@ -6,17 +6,6 @@
     <include layout="@layout/activity_classic_game" />
 
     <TextView
-        android:id="@+id/timerTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@id/toolbar"
-        android:layout_centerHorizontal="true"
-        android:elevation="1dp"
-        android:text="" />
-
-    <TextView
         android:id="@+id/playerOnTurnTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

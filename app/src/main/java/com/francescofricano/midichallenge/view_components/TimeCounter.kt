@@ -20,20 +20,9 @@ class TimeCounter(context: Context, @Nullable attrs: AttributeSet) : LinearLayou
         image = findViewById(R.id.imageViewTimeCounter)
     }
 
-    var time: Int
-        get() {
-            if (timeCounter != null) {
-                try {
-                    val value = timeCounter.text.toString()
-                    return Integer.parseInt(value)
-                } catch (ex: NumberFormatException) {
-                    Log.e("HorizontalNumberPicker", ex.toString())
-                }
-            }
-            return 0
-        }
-        set(value) {
-            timeCounter?.setText(value.toString())
-        }
+
+    fun setTime(timeString: String) {
+        timeCounter!!.text = timeString
+    }
     
 }

@@ -1,11 +1,13 @@
 package com.francescofricano.midichallenge.games
 
+import android.graphics.Color
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
 import android.widget.TextView
 import com.francescofricano.midichallenge.R
 import com.francescofricano.midichallenge.games.models.MultiplayerGame
+import com.francescofricano.midichallenge.view_components.TimeCounter
 import com.google.firebase.auth.FirebaseAuth
 import java.text.SimpleDateFormat
 import java.util.*
@@ -16,6 +18,7 @@ class MultiplayerGameActivity: SoloGameActivity() {
     lateinit var multiplayerGame: MultiplayerGame
     private val LOG_TAG = this.javaClass.name
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         numberPicker.max = resources.getInteger(R.integer.max_number_notes_classic_game_mode)
@@ -23,10 +26,9 @@ class MultiplayerGameActivity: SoloGameActivity() {
         numberPicker.value = numberPicker.max
         playPauseButton.text =  "punta"
         if (game is MultiplayerGame) {
-
-            updateView()
             multiplayerGame.addOnChangeListener { updateView() }
         }
+
 
     }
 
@@ -49,25 +51,26 @@ class MultiplayerGameActivity: SoloGameActivity() {
 
     override fun updateView() {
         super.updateView()
-        val timerTextView = findViewById<TextView>(R.id.timerTextView)
-        if (multiplayerGame.playerOnTurn.id == auth.currentUser!!.uid) {
-            object : CountDownTimer(10000, 1000) {
+        val timeCounter = findViewById<TimeCounter>(R.id.timeCounter)
+            object : CountDownTimer(10000, 1) {
                 override fun onTick(millisUntilFinished: Long) {
-                    timerTextView.text = "seconds remaining: " + SimpleDateFormat("mm:ss:SS").format(
+                    val timeAsString = SimpleDateFormat("ss.SS").format(
                         Date(
                             millisUntilFinished
-                        )
-                    )
+                        ))
+                    timeCounter.setTime(timeAsString)
                 }
 
                 override fun onFinish() {
-                    timerTextView.text = "Tempo scaduto"
+                    timeCounter.setTime("00.00")
                     multiplayerGame.playerOnTurnPasses()
                 }
             }.start()
-        }
-        else {
+        if (multiplayerGame.playerOnTurn.id == auth.currentUser!!.uid) {
             disableControls()
+            val playerOnTurnTextView = findViewById<TextView>(R.id.playerOnTurnTextView)
+            playerOnTurnTextView.text= "IN ATTESA..."
+            playerOnTurnTextView.setTextColor(Color.RED)
         }
     }
 

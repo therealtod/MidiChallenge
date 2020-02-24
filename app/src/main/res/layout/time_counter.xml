@@ -14,7 +14,7 @@
         android:layout_marginRight="10dp"
         android:textSize="22sp"
         android:textStyle="bold"
-        android:textColor="@color/yellow"
+        android:textColor="@color/black"
         android:text="@string/game_time_counter"/>
     <ImageView
         android:id="@+id/imageViewTimeCounter"
