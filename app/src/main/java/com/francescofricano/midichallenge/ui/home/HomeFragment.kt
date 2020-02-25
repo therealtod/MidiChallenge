@@ -103,11 +103,6 @@ class HomeFragment : Fragment() {
                         gameRef.update(mapOf(
                             "status" to "ongoing"
                         ))
-                                // If the update was successful
-                            .addOnCompleteListener {
-                                // Listen to changes to the game document
-
-                            }
 
                     }
                     else {

@@ -63,7 +63,7 @@ object GameFactory {
 
     fun makeMultiplayerGameFromFirebaseDocument(document: DocumentSnapshot) : MultiplayerGame{
         val gameFromDatabase = document.toObject(com.francescofricano.midichallenge.models.database.MultiplayerGame::class.java)
-        val questions = gameFromDatabase!!.questions!!.map{
+        val questions = gameFromDatabase!!.questions.map{
             ClassicGameQuestion(
                 it.song!!.id,
                 it.suggestion,
@@ -73,8 +73,8 @@ object GameFactory {
         }
         return MultiplayerGame(
             questions.toMutableList(),
-            context, gameFromDatabase.players!!,
-            gameFromDatabase.playerOnTurnIndex!!,
+            context, gameFromDatabase.players,
+            gameFromDatabase.playerOnTurnIndex,
             document.reference)
     }
 }

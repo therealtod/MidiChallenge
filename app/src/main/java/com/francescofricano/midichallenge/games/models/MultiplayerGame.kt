@@ -1,11 +1,10 @@
 package com.francescofricano.midichallenge.games.models
 
 import android.content.Context
+import android.util.Log
 import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.IgnoreExtraProperties
 
-
+/*
 class MultiplayerGame (questions: MutableList<ClassicGameQuestion>,
                        context: Context,
                        p: List<String>,
@@ -73,10 +72,29 @@ class MultiplayerGame (questions: MutableList<ClassicGameQuestion>,
     fun updateFromDatabaseData(dataMap: MutableMap<String, Any>?) {
     }
 }
-
-
-/*
-class MultiplayerGame(private val documentReference: DocumentReference)
 */
+
+
+class MultiplayerGame(private val documentReference: DocumentReference) {
+    val LOG_TAG = this.javaClass.name
+    //var
+    init {
+        documentReference
+            .addSnapshotListener{ snapshot, err ->
+                if (err != null) {
+                    Log.w(LOG_TAG, "Listen failed.", err)
+                    return@addSnapshotListener
+                }
+
+                if (snapshot != null && snapshot.exists()) {
+                    Log.d(LOG_TAG, "Current data: ${snapshot.data}")
+                } else {
+                    Log.d(LOG_TAG, "Current data: null")
+                }
+
+            }
+    }
+}
+
 
 class GameIsClosedException (message: String = "The round is already closed") : Exception(message)
