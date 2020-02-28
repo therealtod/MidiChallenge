@@ -9,17 +9,18 @@ import com.google.firebase.firestore.DocumentSnapshot
 import java.util.*
 
 object GameRepository {
-    private val games: MutableMap<String, Game> = mutableMapOf()
+    private val soloGames: MutableMap<String, Game> = mutableMapOf()
+    private val multiplayerGames: MutableMap<String, MultiplayerGame> = mutableMapOf()
     private lateinit var context: Context
     private val LOG_TAG = this.javaClass.name
 
     fun getGame(id: String) : Game {
-        return games[id]
+        return soloGames[id]
             ?: throw GameNotFoundException("Game with id $id not found in the game repository")
     }
 
     fun getSoloGame(id: String): SoloGame {
-        val game = games[id]
+        val game = soloGames[id]
         if (game != null && game is SoloGame) {
             return game
         }
@@ -29,12 +30,12 @@ object GameRepository {
     }
 
     fun getMultiplayerGame(id: String): MultiplayerGame {
-        val game = games[id]
-        if (game != null && game is MultiplayerGame) {
+        val game = multiplayerGames[id]
+        if (game != null) {
             return game
         }
         else {
-            throw GameNotFoundException("The game is not of type SoloGame")
+            throw GameNotFoundException("The game is not of type MultiplayerGame")
         }
     }
 
@@ -46,17 +47,17 @@ object GameRepository {
     fun newSoloGame() : String {
         val game = GameFactory.setContext(context).makeNewSoloGame()
         val id = UUID.randomUUID().toString()
-        games[id] = game
+        soloGames[id] = game
         return id
     }
 
     fun newMultiplayerGame(doc: DocumentSnapshot): String {
-        Log.i(LOG_TAG, "Asking Gamefactory to create a game")
+        Log.i(LOG_TAG, "Asking GameFactory to create a game")
         val game = GameFactory
             .setContext(context).makeMultiplayerGameFromFirebaseDocument(doc)
         val id = UUID.randomUUID().toString()
-        Log.i(LOG_TAG, "Assigned this id: ${id} to the new game")
-        games[id] = game
+        Log.i(LOG_TAG, "Assigned this id: $id to the new game")
+        multiplayerGames[id] = game
         return id
     }
 }

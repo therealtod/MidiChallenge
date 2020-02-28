@@ -4,7 +4,7 @@ import java.util.*
 
 abstract class GameQuestion(val ans: Any)
 
-data class ClassicGameQuestion(val sID: Int,
+open class ClassicGameQuestion(val sID: Int,
                                val suggestion: String,
                                val answer: String,
                                var points: Int = 0) : GameQuestion(answer) {
@@ -18,3 +18,10 @@ data class ClassicGameQuestion(val sID: Int,
     }
 }
 
+
+class MultiplayerGameQuestion(sID: Int,
+                                  suggestion: String,
+                                  answer: String,
+                                  points: Int = 0,
+                                  var open: Boolean = true
+                                  ) : ClassicGameQuestion(sID, suggestion, answer, points)

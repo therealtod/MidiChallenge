@@ -3,25 +3,69 @@ package com.francescofricano.midichallenge.games.models
 import android.content.Context
 import android.util.Log
 import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.DocumentSnapshot
 
-/*
-class MultiplayerGame (questions: MutableList<ClassicGameQuestion>,
-                       context: Context,
-                       p: List<String>,
-                       private var playerOnTurnIndex: Int,
-                       private val documentReference: DocumentReference) : SoloGame(questions, context) {
 
-    private val players: List<Player> = p.map { Player(it) }
+
+class MultiplayerGame(private val initialSnapshot: DocumentSnapshot,
+                      private val documentReference: DocumentReference) {
+    private val playerOnTurnIndexFieldName = "playerOnTurnIndex"
+    private val LOG_TAG = this.javaClass.name
+    private val questions = mutableListOf<MultiplayerGameQuestion>()
+    var players = mutableListOf<Player>()
+    var playerOnTurnIndex = 0
+    var status = "waiting"
     var currentBid = 10
-    private val changeListeners=  mutableListOf<() -> Unit>()
-    private val rounds: List<Round>
-    private var currentRound = 0
+    var listeners = mutableListOf<() -> Unit>()
+    var currentQuestionIndex = 0
 
     init {
-        rounds = questions.map {
-            Round(it, players.toMutableList())
-        }
+        updateFromSnapshot(initialSnapshot)
+        documentReference
+            .addSnapshotListener{ snapshot, err ->
+                if (err != null) {
+                    Log.w(LOG_TAG, "Listen failed.", err)
+                    return@addSnapshotListener
+                }
+
+                if (snapshot != null && snapshot.exists()) {
+                    val data = snapshot.data
+                    Log.d(LOG_TAG, "Current data for this game: $data")
+                    updateFromSnapshot(snapshot)
+                    for (l in listeners) {
+                        l()
+                    }
+
+                } else {
+                    Log.d(LOG_TAG, "Current data: null")
+                }
+            }
     }
+
+
+    val currentQuestion: MultiplayerGameQuestion
+    get() {
+        return questions[currentQuestionIndex]
+    }
+
+    private fun updateFromSnapshot(snapshot : DocumentSnapshot) {
+        val gameFromDatabase = snapshot
+            .toObject(com.francescofricano.midichallenge.models.database.MultiplayerGame::class.java)
+        Log.i(LOG_TAG, "Adding questions")
+        questions.addAll(gameFromDatabase!!.questions.map{
+            MultiplayerGameQuestion(
+                it.song!!.id,
+                it.suggestion,
+                it.answer,
+                0
+            )
+        })
+        Log.i(LOG_TAG, "Adding players")
+        players.addAll(gameFromDatabase.players.map { Player(it) })
+        playerOnTurnIndex = gameFromDatabase.playerOnTurnIndex
+        status = gameFromDatabase.status
+    }
+
 
     val playerOnTurn: Player
         get() {
@@ -34,9 +78,10 @@ class MultiplayerGame (questions: MutableList<ClassicGameQuestion>,
 
     fun playerOnTurnPasses() {
         switchToNextPlayer()
+        currentQuestion.open = false
         documentReference.update(
             mapOf(
-                "playerOTurnIndex" to playerOnTurnIndex
+                playerOnTurnIndexFieldName to playerOnTurnIndex
             )
         )
     }
@@ -46,7 +91,13 @@ class MultiplayerGame (questions: MutableList<ClassicGameQuestion>,
             throw GameIsClosedException()
         }
         if (notes == 1) {
-            //TODO
+            currentQuestion.open = false
+            documentReference.update(
+                mapOf(
+                    "currentNotes" to notes,
+                    playerOnTurnIndexFieldName to playerOnTurnIndex
+                )
+            )
             return
         }
         if (notes < currentBid) {
@@ -54,7 +105,8 @@ class MultiplayerGame (questions: MutableList<ClassicGameQuestion>,
             switchToNextPlayer()
             documentReference.update(
                 mapOf(
-                    "currentNotes" to notes
+                    "currentNotes" to notes,
+                    playerOnTurnIndexFieldName to playerOnTurnIndex
                 )
             )
             return
@@ -65,35 +117,10 @@ class MultiplayerGame (questions: MutableList<ClassicGameQuestion>,
         return playerID == playerOnTurn.id
     }
 
-    fun addOnChangeListener(onChangeListener: () -> Unit) {
-       this.changeListeners.add(onChangeListener)
+    fun addListener(listener: ()-> Unit) {
+        listeners.add(listener)
     }
 
-    fun updateFromDatabaseData(dataMap: MutableMap<String, Any>?) {
-    }
-}
-*/
-
-
-class MultiplayerGame(private val documentReference: DocumentReference) {
-    val LOG_TAG = this.javaClass.name
-    //var
-    init {
-        documentReference
-            .addSnapshotListener{ snapshot, err ->
-                if (err != null) {
-                    Log.w(LOG_TAG, "Listen failed.", err)
-                    return@addSnapshotListener
-                }
-
-                if (snapshot != null && snapshot.exists()) {
-                    Log.d(LOG_TAG, "Current data: ${snapshot.data}")
-                } else {
-                    Log.d(LOG_TAG, "Current data: null")
-                }
-
-            }
-    }
 }
 
 
