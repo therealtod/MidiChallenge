@@ -1,20 +1,22 @@
 package com.francescofricano.midichallenge.games
 
 import android.app.Dialog
-import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.view.Window
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.francescofricano.midichallenge.EndGameActivity
 import com.francescofricano.midichallenge.R
+import com.francescofricano.midichallenge.games.models.BidIsClosed
+import com.francescofricano.midichallenge.games.models.BidIsOpen
 import com.francescofricano.midichallenge.games.models.MultiplayerGame
 import com.francescofricano.midichallenge.view_components.HorizontalNumberPicker
+import com.francescofricano.midichallenge.view_components.PlayerScore
 import com.francescofricano.midichallenge.view_components.TimeCounter
 import com.google.firebase.auth.FirebaseAuth
 import java.text.SimpleDateFormat
@@ -34,7 +36,10 @@ class MultiplayerGameActivity: AppCompatActivity() {
     private lateinit var answerBox: EditText
     private lateinit var playerOnTurnTextView: TextView
     private lateinit var suggestionTextView: TextView
+    private lateinit var myPointsIndicator: PlayerScore
+    private lateinit var opponentPointsIndicator: PlayerScore
     private lateinit var dialog: Dialog
+    private lateinit var mediaPlayer: MediaPlayer
 
 
     private val timer = object : CountDownTimer(10000, 1) {
@@ -79,41 +84,48 @@ class MultiplayerGameActivity: AppCompatActivity() {
         answerBox = findViewById(R.id.editTextAnswerMultiplayer)
         buttonPass = findViewById(R.id.buttonPassMultiplayer)
         suggestionTextView = findViewById(R.id.textViewSuggestionMultiplayer)
-        dialog = Dialog(this@MultiplayerGameActivity)
-        val bidButton = findViewById<Button>(R.id.buttonBidMultiplayer)
-        val passButton = findViewById<Button>(R.id.buttonPassMultiplayer)
-        passButton.setOnClickListener {
+        myPointsIndicator = findViewById(R.id.PlayerScoreOneMultiplayer)
+        opponentPointsIndicator = findViewById(R.id.PlayerScoreTwoMultiplayer)
+        mediaPlayer = MediaPlayer.create(this, R.raw.donne_test)
+        mediaPlayer.setOnCompletionListener{
+            buttonPlayPause.text = "Play"
+        }
+        dialog =  Dialog(this@MultiplayerGameActivity)
+        if (dialog.window != null) {
+            val colorDrawable = ColorDrawable(Color.TRANSPARENT)
+            dialog.window!!.setBackgroundDrawable(colorDrawable)
+        }
+        dialog.setContentView(R.layout.response_dialog)
+        dialog.setCancelable(false)
+        buttonPass.setOnClickListener {
+            timer.cancel()
             userPerformsAction("pass")
         }
-        bidButton.setOnClickListener {
+        buttonBid.setOnClickListener {
+            timer.cancel()
             userPerformsAction("bid")
         }
+        buttonPlayPause.setOnClickListener { view ->
+            if (mediaPlayer.isPlaying) {
+                mediaPlayer.pause()
+                buttonPlayPause.text = "Play"
+            } else {
+                mediaPlayer.start()
+                buttonPlayPause.text = "Pause"
+            }
+        }
         initializeView()
-
+        confirmButton.setOnClickListener{
+            game.answerCurrentQuestion(answerBox.text.toString())
+        }
     }
-
-    private fun disableControlsForPlayerOnWait() {
-        numberPicker.freezeButtons()
-        buttonBid.isEnabled = false
-        buttonPass.isEnabled = false
-    }
-
-    private fun disableControlsBeforeBiddingIsOver() {
-        buttonPlayPause.isEnabled = false
-        answerBox.isEnabled = false
-        confirmButton.isEnabled = false
-    }
-
 
     private fun initializeView() {
-        timer.start()
-        disableControlsBeforeBiddingIsOver()
-        suggestionTextView.text = game.currentQuestion.suggestion
-        if (! isThisPlayerOnTurn()) {
-            disableControlsForPlayerOnWait()
-            playerOnTurnTextView.text= "IN ATTESA..."
-            playerOnTurnTextView.setTextColor(Color.RED)
+        if (isThisPlayerOnTurn()) {
+            timer.start()
         }
+        suggestionTextView.text = game.currentQuestion.suggestion
+        updateView()
     }
 
     private fun userPerformsAction(action: String) {
@@ -129,43 +141,84 @@ class MultiplayerGameActivity: AppCompatActivity() {
     }
 
     private fun displayTransitionDialog() {
-        //dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        if (dialog.window != null) {
-            val colorDrawable = ColorDrawable(Color.TRANSPARENT)
-            dialog.window!!.setBackgroundDrawable(colorDrawable)
-        }
-        dialog.setContentView(R.layout.response_dialog)
-        dialog.setCancelable(false)
+        val responseText : TextView = dialog.findViewById(R.id.dialogText)
+        responseText.text = "In attesa dell'avversario"
+        responseText.setTextColor(Color.RED)
+
+
         dialog.show()
+        /*
+        Timer().schedule(object : TimerTask() {
+            override fun run() {
+                dialog.dismiss()
+            }
+        }, 2000)
+
+         */
+    }
+
+
+    private fun displayWaitForRivalResponseDialog() {
+        val responseText : TextView = dialog.findViewById(R.id.dialogText)
+        responseText.text = "L' avversario sta rispondendo"
+        responseText.setTextColor(Color.RED)
+        dialog.show()
+        /*
+        Timer().schedule(object : TimerTask() {
+            override fun run() {
+                dialog.dismiss()
+            }
+        }, 10000)
+
+         */
     }
 
     private fun isThisPlayerOnTurn() :Boolean{
         return game.playerOnTurn.id == auth.currentUser!!.uid
     }
 
+    private fun disableEverything() {
+        buttonBid.isEnabled = false
+        buttonPass.isEnabled = false
+        buttonPlayPause.isEnabled = false
+        answerBox.isEnabled = false
+        confirmButton.isEnabled = false
+    }
+
     private fun updateView() {
-        if (game.currentQuestion.open) {
-            disableControlsBeforeBiddingIsOver()
-        }
-        else {
-            buttonBid.isEnabled = false
-            buttonPass.isEnabled = false
-            buttonPlayPause.isEnabled = true
-            answerBox.isEnabled = true
-            confirmButton.isEnabled = true
-        }
-        suggestionTextView.text = game.currentQuestion.suggestion
-        if (! isThisPlayerOnTurn()) {
-            disableControlsForPlayerOnWait()
-            playerOnTurnTextView.text= "IN ATTESA..."
-            playerOnTurnTextView.setTextColor(Color.RED)
-        }
-        else {
+        Log.i(LOG_TAG, game.toString())
+        disableEverything()
+        dialog.dismiss()
+        numberPicker.value = game.currentBid
+        myPointsIndicator.score = game.me.points
+        opponentPointsIndicator.score = game.opponent.points
+        if (isThisPlayerOnTurn()) {
             playerOnTurnTextView.text= "É IL TUO TURNO!"
             playerOnTurnTextView.setTextColor(Color.GREEN)
+            when (game.bidIsOpen) {
+                true -> {
+                    buttonBid.isEnabled = true
+                    buttonPass.isEnabled = true
+                }
+                false -> {
+                    numberPicker.freezeButtons()
+                    buttonPlayPause.isEnabled = true
+                    answerBox.isEnabled = true
+                    confirmButton.isEnabled = true
+                }
+            }
         }
-        Thread.sleep(2000)
-        dialog.dismiss()
-        timer.start()
+        else {
+            playerOnTurnTextView.text= "IN ATTESA..."
+            playerOnTurnTextView.setTextColor(Color.RED)
+            when (game.bidIsOpen) {
+                true -> {
+                    displayTransitionDialog()
+                }
+                false -> {
+                    displayWaitForRivalResponseDialog()
+                }
+            }
+        }
     }
 }

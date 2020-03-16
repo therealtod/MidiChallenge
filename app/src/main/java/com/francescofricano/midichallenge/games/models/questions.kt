@@ -1,5 +1,6 @@
 package com.francescofricano.midichallenge.games.models
 
+import com.francescofricano.midichallenge.models.database.Song
 import java.util.*
 
 abstract class GameQuestion(val ans: Any)
@@ -19,9 +20,15 @@ open class ClassicGameQuestion(val sID: Int,
 }
 
 
-class MultiplayerGameQuestion(sID: Int,
-                                  suggestion: String,
-                                  answer: String,
-                                  points: Int = 0,
-                                  var open: Boolean = true
-                                  ) : ClassicGameQuestion(sID, suggestion, answer, points)
+class MultiplayerGameQuestion(val suggestion: String,
+                              val answer: String,
+                              val song: Song?,
+                              var open: Boolean = true
+                                ) {
+    fun answerQuestion(answer: String, points: Int) : Boolean{
+        if (answer.toLowerCase(Locale.ITALY).trim() == this.answer.toLowerCase(Locale.ITALY).trim()) {
+            return true
+        }
+        return false
+    }
+}

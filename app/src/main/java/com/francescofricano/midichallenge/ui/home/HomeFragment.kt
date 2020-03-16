@@ -74,7 +74,6 @@ class HomeFragment : Fragment() {
     }
 
     private fun waitForGame()  {
-        println("HELLOOOOOOOOOOO")
         if (auth.currentUser != null) {
             /* Query all the games where my id is included in "players"
              * and the status is "waiting". Get only one.
@@ -101,7 +100,7 @@ class HomeFragment : Fragment() {
                         intent.putExtra("GAME_ID", gameId)
                         startActivity(intent)
                         gameRef.update(mapOf(
-                            "status" to "ongoing"
+                            "status" to "bid_open"
                         ))
 
                     }

@@ -1,6 +1,5 @@
 package com.francescofricano.midichallenge.games
 
-import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -15,10 +14,14 @@ object MatchManager {
 
     fun randomQueue (){
         //Look for oldest open room not created by the current user
+        val user = auth.currentUser
+        val uid = user!!.uid
+        val email = user.email
+        val name = user.displayName ?: email
         db.collection(
             challengesCollectionName
         )
-            .document(auth.currentUser!!.uid)
-            .set(Challenge(auth.currentUser!!.uid))
+            .document(uid)
+            .set(Challenge(uid, name!!))
     }
 }

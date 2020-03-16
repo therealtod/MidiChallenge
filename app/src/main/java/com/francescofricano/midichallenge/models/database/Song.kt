@@ -3,7 +3,7 @@ package com.francescofricano.midichallenge.models.database
 import com.google.firebase.firestore.IgnoreExtraProperties
 
 @IgnoreExtraProperties
-data class Song(var id : Int=0, var title : String="", var author : String="", var filename : String?="") {
+data class Song(var sid : Int=0, var title : String="", var author : String="", var filename : String?="") {
     /*
     companion object {
         fun fromHashMap(map : HashMap<String, Any>) : Song{

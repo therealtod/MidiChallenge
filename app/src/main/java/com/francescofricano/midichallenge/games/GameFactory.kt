@@ -22,7 +22,7 @@ object GameFactory {
         val questions = QuestionManager.setContext(context).getNQuestions(numberOfQuestions)
         val soloGameQuestions = questions.map {
             ClassicGameQuestion(
-                sID = it.song.id,
+                sID = it.song.sid,
                 suggestion = it.suggestion,
                 answer = it.answer
             )
@@ -32,34 +32,6 @@ object GameFactory {
             context
         )
     }
-    /*
-    fun makeMultiplayerGameFromFirebaseDocument(document: DocumentSnapshot) : MultiplayerGame{
-        Log.i(LOG_TAG, "Creating a game")
-        val players = document.get("players") as List<*>
-        val p = players.map {
-            it as String
-        }
-        val playerOnTurnIndex = document.get("playerOnTurnIndex") as Long
-        val questionsFromDatabase = document.get("questions") as List<*>
-        val gameQuestions = mutableListOf<ClassicGameQuestion>()
-        for (item in questionsFromDatabase) {
-            if (item is HashMap<*,*>) {
-                val map = item as HashMap<String, Any>
-                val songMap = map.get("song") as HashMap<String, Any>
-                val song = Song.fromHashMap(songMap)
-                gameQuestions.add(ClassicGameQuestion(
-                    sID = song.id,
-                    suggestion = map.get("suggestion") as String,
-                    answer = map.get("answer") as String
-                ))
-            }
-        }
-
-
-        return MultiplayerGame(gameQuestions, context, p, playerOnTurnIndex.toString().toInt(), document.reference)
-    }
-
-     */
 
     fun makeMultiplayerGameFromFirebaseDocument(document: DocumentSnapshot) : MultiplayerGame{
         return MultiplayerGame(document, document.reference)

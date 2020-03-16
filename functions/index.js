@@ -30,7 +30,7 @@ class Game {
   }
 }
 
-const createNewGame = (id1, id2) => {
+const createNewGame = (player1, player2) => {
   console.log("Creating a new game")
   firestore
     .collection("questions")
@@ -44,7 +44,18 @@ const createNewGame = (id1, id2) => {
         selectedQuestions.forEach(element => {
           qs.push(element.data())
         });
-        const players = [id1, id2]
+        const players = [
+          {
+            "id": player1.id,
+            "name": player1.playerName,
+            "points": 0
+          },
+          {
+            "id": player2.id,
+            "name": player2.playerName,
+            "points": 0
+          }
+        ]
         const playerOnTurn = getRandomInt(players.length -1)
         firestore.collection("games").add(
           {
@@ -76,8 +87,9 @@ exports.matchChallenges = functions
   .region('europe-west1')
   .firestore
   .document('challenges/{id}')
-  .onCreate((change, context) => {
+  .onCreate((createdSnapshot, context) => {
     console.log("New challenge created!")
+    console.log(createdSnapshot.data())
     // Match two compatible challenges
     // We need to create a game object and delete the two challenges
     firestore
@@ -89,14 +101,27 @@ exports.matchChallenges = functions
         console.log("I retrieved the following challenges:")
         const challenges = snapshot.docs
         console.log(challenges)
+        let newChallenge = createdSnapshot.data()
+        let player2 = {
+          "id": newChallenge.playerID,
+          "playerName": newChallenge.playerName,
+        }
         if ( challenges.length > 0) {
           if (challenges[0].get("playerID") !== context.params.id) {
-            createNewGame(challenges[0].get("playerID"), context.params.id)
+            let player1 = {
+              "id": challenges[0].get("playerID"),
+              "playerName": challenges[0].get("playerName")
+            }
+            createNewGame(player1, player2)
             deleteChallenges(challenges[0].get("playerID"), context.params.id)
           }
           else {
             if (challenges.length > 1) {
-              createNewGame(challenges[1].get("playerID"), context.params.id)
+              let player1 = {
+                "id": challenges[1].get("playerID"),
+                "playerName": challenges[1].get("playerName")
+              }
+              createNewGame(player1, player2)
               deleteChallenges(challenges[1].get("playerID"), context.params.id)
             }
           }

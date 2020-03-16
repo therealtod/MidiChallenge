@@ -144,7 +144,7 @@ open class SoloGameActivity : AppCompatActivity() {
         dialog.show()
 
         val buttonNext: Button = dialog.findViewById(R.id.responseDialogNextButton)
-        val responseText : TextView = dialog.findViewById(R.id.responseDialogText)
+        val responseText : TextView = dialog.findViewById(R.id.dialogText)
 
         if(isResponseCorrect) {
             responseText.setText(R.string.dialog_correct_answer_text)

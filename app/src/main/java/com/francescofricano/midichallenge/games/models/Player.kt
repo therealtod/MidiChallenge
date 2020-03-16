@@ -1,3 +1,6 @@
 package com.francescofricano.midichallenge.games.models
 
-class Player (val id: String, var points: Int = 0)
+import com.google.firebase.firestore.IgnoreExtraProperties
+
+@IgnoreExtraProperties
+class Player (val id: String, val name: String, var points: Int = 0)

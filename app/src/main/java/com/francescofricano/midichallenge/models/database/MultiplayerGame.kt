@@ -6,5 +6,5 @@ import com.google.firebase.firestore.IgnoreExtraProperties
 data class MultiplayerGame(
     var playerOnTurnIndex: Int = 0,
     var questions: List<Question> = listOf(),
-    var players: List<String> = listOf(),
+    var players: List<Player> = listOf(),
     var status: String = "")
