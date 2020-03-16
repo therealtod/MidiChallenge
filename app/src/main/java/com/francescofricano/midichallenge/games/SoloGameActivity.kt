@@ -20,9 +20,14 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.francescofricano.midichallenge.games.models.SoloGame
+import com.francescofricano.midichallenge.midi.MidiFile
+import com.francescofricano.midichallenge.midi.event.MidiEvent
+import com.francescofricano.midichallenge.midi.event.NoteOff
+import com.francescofricano.midichallenge.midi.event.NoteOn
 import com.francescofricano.midichallenge.view_components.HorizontalNumberPicker
 import kotlinx.android.synthetic.main.horizontal_number_picker.view.*
-
+import java.io.File
+import java.io.FileInputStream
 
 open class SoloGameActivity : AppCompatActivity() {
 
@@ -33,6 +38,7 @@ open class SoloGameActivity : AppCompatActivity() {
     lateinit var playPauseButton : Button
     lateinit var answerBox: EditText
     lateinit var confirmButton: Button
+    private var mediaPlayerIsPrepared = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,12 +75,54 @@ open class SoloGameActivity : AppCompatActivity() {
         getGame(gameId)
         updateView()
 
-        mediaPlayer = MediaPlayer.create(this, R.raw.donne_test)
+        val file = resources.openRawResource(R.raw.donne_test)
+        val midiFile = MidiFile(file)
+
+        mediaPlayer = MediaPlayer()
+
         mediaPlayer.setOnCompletionListener{
             playPauseButton.text = "Play"
         }
 
         playPauseButton.setOnClickListener{ view ->
+            val out = File.createTempFile("temp",".mid")
+            val track = midiFile.tracks[0]
+            val eventsToRemove = mutableListOf<MidiEvent>()
+            val eventsIterator = track.events.iterator()
+            var count = numberPicker.value
+            var atLeastOneNote = false
+            var notesNotMatched = 0
+            while (eventsIterator.hasNext()) {
+                val event = eventsIterator.next()
+                if (event is NoteOn){
+                    atLeastOneNote = true
+                    notesNotMatched ++
+                    if (count > 0) {
+                        count --
+                    }
+                    else {
+                        eventsToRemove.add(event)
+                    }
+                    continue
+                }
+                if (event is NoteOff) {
+                    notesNotMatched --
+                    continue
+                }
+                if (notesNotMatched == 0 && atLeastOneNote && count <= 0) {
+                    eventsToRemove.add(event)
+                    continue
+                }
+            }
+            for (ev in eventsToRemove) {
+                track.removeEvent(ev)
+            }
+            midiFile.writeToFile(out)
+            if (!mediaPlayerIsPrepared) {
+                mediaPlayer.setDataSource(FileInputStream(out).fd)
+                mediaPlayer.prepare()
+                mediaPlayerIsPrepared = true
+            }
             isPlayed = true
             numberPicker.freezeButtons()
             notesUsed = numberPicker.value
