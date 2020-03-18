@@ -9,6 +9,7 @@
         android:layout_width="0sp"
         android:layout_height="match_parent"
         android:layout_weight="1"
+        android:background="@drawable/bottone_corto"
         android:text="@string/number_picker_less_button" />
 
     <EditText
@@ -27,6 +28,7 @@
         android:layout_width="0sp"
         android:layout_height="match_parent"
         android:layout_weight="1"
+        android:background="@drawable/bottone_corto"
         android:text="@string/number_picker_more_button" />
 
 </LinearLayout>

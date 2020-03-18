@@ -8,9 +8,9 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
-    <string name="menu_home">Home</string>
+    <string name="menu_home">MidiChallenge</string>
     <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_friends">Amici</string>
     <string name="menu_tools">Tools</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
@@ -24,6 +24,7 @@
     <!--content_main components-->
     <string name="content_main_play_button">Start</string>
     <string name="content_main_login_button">Login</string>
+    <string name="enter_friend_manager_button_text">AMICI</string>
 
 
     <!--activity_sign_up components-->
@@ -58,6 +59,9 @@
     <string name="number_picker_text">0</string>
     <string name="number_picker_more_button">+</string>
     <string name="game_classic_label">Sarabanda Quiz</string>
+    <string name="game_bid_button">Punta</string>
+    <string name="game_pass_button">Passa</string>
+    <string name="game_player_on_turn_text">È IL TUO TURNO!</string>
 
     <!--activity_end_game components-->
     <string name="end_game_text">FINE!</string>
@@ -69,5 +73,40 @@
     <string name="dialog_correct_answer_text">RISPOSTA CORRETTA!</string>
     <string name="dialog_wrong_answer_text">RISPOSTA SBAGLIATA!</string>
     <string name="dialog_next_button">Continua</string>
+    <string name="title_activity_friends_manager">FriendsManagerActivity</string>
 
+    <!--friend list-->
+    <string name="friend_list_column1">username</string>
+    <string name="friend_list_column2">manda un messaggio</string>
+
+
+    <!--menu-->
+    <string name="action_logout">Logout</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+
+    <!-- Settings -->
+    <string name="account_header">Account</string>
+    <string name="logout_button_key">logout</string>
+    <string name="logout_button_text">Logout</string>
+    <string name="logout_button_summary">Sign out from your account</string>
+
+
+    <!-- Home fragment -->
+    <string name="random_match_button_text">Sfida un utente casuale</string>
+    <string name="solo_game_button_text">Inizia una partita in solitario</string>
 </resources>
